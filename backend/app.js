@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
+
 var cardRouter = require('./routes/card');
 var bankaccountRouter = require('./routes/bankaccount');
 
