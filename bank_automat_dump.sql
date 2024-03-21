@@ -169,7 +169,7 @@ CREATE TABLE `user_account` (
   UNIQUE KEY `id_account_UNIQUE` (`id_account`),
   KEY `id_account_idx` (`id_account`),
   KEY `id_user_idx` (`id_user`),
-  CONSTRAINT `fk_2_id_account` FOREIGN KEY (`id_account`) REFERENCES `bank_account` (`id_account`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `fk_2_id_account` FOREIGN KEY (`id_account`) REFERENCES `bank_account` (`id_account`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
