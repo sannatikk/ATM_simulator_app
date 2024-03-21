@@ -17,7 +17,7 @@ const bankaccount = {
     },
 
     updateAccount(id, updateAccount, callback){
-        return db.query("UPDATE bank_account SET id_account = ?, balance = ?, credit_limit = ? WHERE id_account = ?", [updateAccount.id_account, updateAccount.balance, updateAccount.credit_limit], id, callback);
+        return db.query("UPDATE bank_account SET id_account = ?, balance = ?, credit_limit = ? WHERE id_account = ?", [updateAccount.id_account, updateAccount.balance, updateAccount.credit_limit, id], callback);
     },
 
     deleteAccount(id, callback){
