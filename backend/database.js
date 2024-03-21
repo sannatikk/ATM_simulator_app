@@ -4,4 +4,4 @@ dotenv.config();
 
 const connection=mysql.createPool(process.env.MySQL_DB);
 
-module.exports=connection; 
+module.exports=connection;
