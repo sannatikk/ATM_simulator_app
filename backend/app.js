@@ -7,6 +7,7 @@ var indexRouter = require('./routes/index');
 
 var cardRouter = require('./routes/card');
 var bankaccountRouter = require('./routes/bankaccount');
+var transactionRouter = require('./routes/transaction');
 
 var app = express();
 
@@ -19,6 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/card', cardRouter);
 app.use('/bankaccount', bankaccountRouter);
+app.use('/transaction', transactionRouter);
 
 
 module.exports = app;
