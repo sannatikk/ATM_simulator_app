@@ -5,7 +5,7 @@ const useraccount = require('../models/useraccount_model');
 router.get('/', function(request, response){
     useraccount.getAllUserAccounts(function(err,result){
         if (err) {
-            console.log("Virhe hakiessa tietoja: " +err);
+            console.log("Error retrieving user_accounts: " +err);
             response.send(err);
         }
         else {
@@ -17,7 +17,7 @@ router.get('/', function(request, response){
 router.get('/:id',function(request, response){
     useraccount.getOneUserAccount(request.params.id, function(err, result){
         if(err){
-            console.log("Virhe hakiessa tietoja: " +err);
+            console.log("Error retrieving user_account row: " +err);
             response.send(err);
         }
         else {
@@ -26,8 +26,40 @@ router.get('/:id',function(request, response){
     })
 });
 
-// tarviiko tosiaan lisätä post ja put näille, toimiiko se edes? 
-// router.post();
-// router.put();
+router.post('/', function(request, response){
+    useraccount.addUserAccount(request.body, function(err, result){
+        if (err) {
+            console.log("Error adding user_account row: " +err);
+            response.send(err);
+        }
+        else {
+            response.json(result.affectedRows);
+        }
+    });
+});
+
+router.put('/:id', function(request, response){
+    useraccount.updateUserAccount(request.params.id, request.body, function(err, result){
+        if (err) {
+            console.log("Error updating user_account row: " +err);
+            response.send(err);
+        }
+        else {
+            response.json(result.affectedRows);
+        }
+    });
+});
+
+router.delete('/:id', function(request, response){
+    useraccount.deleteUserAccount(request.params.id, function(err, result){
+        if (err) {
+            console.log("Error deleting user_account row: " +err);
+            response.send(err);
+        }
+        else {
+            response.json(result.affectedRows);
+        }
+    });
+});
 
 module.exports = router;
