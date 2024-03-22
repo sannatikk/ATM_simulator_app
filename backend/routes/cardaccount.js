@@ -41,4 +41,30 @@ router.post('/', function (request, response) {
     });
 });
 
+router.put('/:id', function (request, response) {
+    cardaccount.updateCardAccount(request.params.id, request.body, function (err, result) {
+        if (err) {
+            console.log(err);
+            response.send(err);
+        }
+        else {
+            console.log(result);
+            response.json(result);
+        }
+    });
+});
+
+router.delete('/:id', function (request, response) {
+    cardaccount.deleteCardAccount(request.params.id, function (err, result) {
+        if (err) {
+            console.log(err);
+            response.send(err);
+        }
+        else {
+            console.log(result);
+            response.json(result);
+        }
+    });
+});
+
 module.exports = router;
