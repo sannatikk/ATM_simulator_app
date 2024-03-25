@@ -1,4 +1,5 @@
 const db = require('../database');
+const bcrypt = require('bcryptjs');
 
 const card = {
     getAllCards(callback) {
@@ -9,12 +10,16 @@ const card = {
         return db.query("SELECT * FROM card WHERE id_card=?", [id], callback);
     },
 
-    addCard(card, callback) {
-        return db.query("INSERT INTO card (id_card, pincode, is_combined) VALUES(?,?,?)", [card.id_card, card.pincode, card.is_combined], callback);
+    addCard(newCard, callback) {
+        bcrypt.hash(newCard.pincode, 10, function (err, hashedPassword) {
+            return db.query("INSERT INTO card (id_card, pincode, is_combined) VALUES(?,?,?)", [newCard.id_card, hashedPassword, newCard.is_combined], callback);
+        });
     },
 
-    updateCard(id_card,updateCard, callback) {
-        return db.query("UPDATE card SET pincode=?, is_combined=? WHERE id_card=?", [updateCard.pincode, updateCard.is_combined, id_card], callback);
+    updateCard(id_card, updateCard, callback) {
+        bcrypt.hash(updateCard.pincode, 10, function (err, hashedPassword) {
+            return db.query("UPDATE card SET pincode=?, is_combined=? WHERE id_card=?", [hashedPassword, updateCard.is_combined, id_card], callback);
+        });
     },
 
     deleteCard(id_card, callback) {
