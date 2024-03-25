@@ -9,6 +9,7 @@ var bankaccountRouter = require('./routes/bankaccount');
 var cardAccountRouter = require('./routes/cardaccount');
 var transactionRouter = require('./routes/transaction');
 var useraccountRouter = require('./routes/useraccount');
+var userRouter = require('./routes/user');
 
 var app = express();
 
@@ -24,5 +25,6 @@ app.use('/bankaccount', bankaccountRouter);
 app.use('/cardaccount', cardAccountRouter);
 app.use('/transaction', transactionRouter);
 app.use('/useraccount', useraccountRouter);
+app.use('/user', userRouter);
 
 module.exports = app;
