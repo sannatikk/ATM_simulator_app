@@ -30,6 +30,10 @@ const bankaccount = {
 
     getCreditLimit(id, callback){
         return db.query("SELECT credit_limit FROM bank_account WHERE id_account = ?", [id], callback);
+    },
+
+    withdrawMoney(account, callback){
+        return db.query("CALL bank_transaction(?, 'withdrawal', ?)", [account.id_account, account.amount], callback);
     }
 }
 
