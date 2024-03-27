@@ -11,6 +11,11 @@ var cardAccountRouter = require('./routes/cardaccount');
 var transactionRouter = require('./routes/transaction');
 var useraccountRouter = require('./routes/useraccount');
 var userRouter = require('./routes/user');
+
+var balanceRouter = require('./routes/balance');
+var creditlimitRouter = require('./routes/creditlimit');
+var withdrawRouter = require('./routes/withdraw');
+
 var loginRouter = require('./routes/login');
 
 var app = express();
@@ -26,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 
-app.use(authenticateToken);
+//app.use(authenticateToken);
 
 //Secured routes
 
@@ -36,6 +41,9 @@ app.use('/cardaccount', cardAccountRouter);
 app.use('/transaction', transactionRouter);
 app.use('/useraccount', useraccountRouter);
 app.use('/user', userRouter);
+app.use('/balance', balanceRouter);
+app.use('/creditlimit', creditlimitRouter);
+app.use('/withdraw', withdrawRouter);
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];

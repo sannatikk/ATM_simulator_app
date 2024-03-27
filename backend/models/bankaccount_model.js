@@ -22,6 +22,18 @@ const bankaccount = {
 
     deleteAccount(id, callback){
         return db.query("DELETE FROM bank_account WHERE id_account = ?", [id], callback);
+    },
+
+    getBalance(id, callback){
+        return db.query("SELECT balance FROM bank_account WHERE id_account = ?", [id], callback);
+    },
+
+    getCreditLimit(id, callback){
+        return db.query("SELECT credit_limit FROM bank_account WHERE id_account = ?", [id], callback);
+    },
+
+    withdrawMoney(account, callback){
+        return db.query("CALL bank_transaction(?, 'withdrawal', ?)", [account.id_account, account.amount], callback);
     }
 }
 
