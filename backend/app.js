@@ -16,6 +16,8 @@ var balanceRouter = require('./routes/balance');
 var creditlimitRouter = require('./routes/creditlimit');
 var withdrawRouter = require('./routes/withdraw');
 
+var adminRouter = require('./routes/admin');
+
 var loginRouter = require('./routes/login');
 
 var app = express();
@@ -44,6 +46,7 @@ app.use('/user', userRouter);
 app.use('/balance', balanceRouter);
 app.use('/creditlimit', creditlimitRouter);
 app.use('/withdraw', withdrawRouter);
+app.use('/admin', adminRouter);
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
