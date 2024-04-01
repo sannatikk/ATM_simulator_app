@@ -1,6 +1,10 @@
 backend/node_modules/
 bank-automat/build/
-bank-automat/*.user 
+bank-automat/*.user
+bank-automat/RFIDReader/*.user
+bank-automat/RFIDReader/build/
+bank-automat/PinUI/*.user
+bank-automat/PinUI/build/
 
 backend/.env
 
