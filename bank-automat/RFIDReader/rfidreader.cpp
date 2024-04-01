@@ -19,10 +19,15 @@ RFIDReader::RFIDReader(QObject * parent) : QObject(parent)
         serial->setFlowControl(QSerialPort::NoFlowControl);
         serial->open(QIODevice::ReadOnly);  //Open serial port for read-only
 
+        //Connect signal to serialReceived when data is read
         connect(serial, SIGNAL(readyRead()),
-                this, SLOT(serialReceived()));  //Send signal to serialReceived if data is read
+                this, SLOT(serialReceived()));
 
         qDebug() << "Serialport ready to read data...";
+
+        //Connect signal to exe when data is received
+        connect(this, SIGNAL(serialSignal(QString)),
+                this->parent(), SLOT(setSerialID(QString)));
     }
     else {
         qDebug() << "RFID reader not found";
@@ -40,8 +45,7 @@ void RFIDReader::serialReceived()
     data.erase(std::remove(data.begin(), data.end(), '-'), data.end());
     data.erase(std::remove(data.begin(), data.end(), '>'), data.end());
 
-    connect(this, SIGNAL(serialSignal(QString)),
-            this->parent(), SLOT(setSerialID(QString)));
+
 
     QString result = QString(data); //Convert data to QString
 
