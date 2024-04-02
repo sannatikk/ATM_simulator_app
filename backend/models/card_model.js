@@ -18,7 +18,7 @@ const card = {
 
     updateCard(id_card, updateCard, callback) {
         bcrypt.hash(updateCard.pincode, 10, function (err, hashedPassword) {
-            return db.query("UPDATE card SET pincode=?, is_combined=? WHERE id_card=?", [hashedPassword, updateCard.is_combined, id_card], callback);
+            return db.query("UPDATE card SET pincode=?, is_combined=?, is_locked=? WHERE id_card=?", [hashedPassword, updateCard.is_combined, updateCard.is_locked, id_card], callback);
         });
     },
 
