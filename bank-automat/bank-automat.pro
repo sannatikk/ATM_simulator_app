@@ -32,7 +32,6 @@ else:unix: LIBS += -L$$PWD/RFIDReader/build/ -lRFIDReader
 INCLUDEPATH += $$PWD/RFIDReader
 DEPENDPATH += $$PWD/RFIDReader
 
-
 #PinUI dll
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/PinUI/build/release/ -lPinUI
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/PinUI/build/debug/ -lPinUI
@@ -40,3 +39,4 @@ else:unix: LIBS += -L$$PWD/PinUI/build/ -lPinUI
 
 INCLUDEPATH += $$PWD/PinUI
 DEPENDPATH += $$PWD/PinUI
+
