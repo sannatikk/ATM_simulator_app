@@ -1,0 +1,12 @@
+#ifndef LOGINHANDLER_GLOBAL_H
+#define LOGINHANDLER_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(LOGINHANDLER_LIBRARY)
+#  define LOGINHANDLER_EXPORT Q_DECL_EXPORT
+#else
+#  define LOGINHANDLER_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // LOGINHANDLER_GLOBAL_H

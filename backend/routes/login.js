@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 router.post('/', function (request, response) {
-    if (request.body.id_card && request.body.pincode) {                                                 //Check that needed forms are filled
+    if (request.body.id_card && request.body.pincode) {                                                //Check that needed forms are filled
         login.userLogin(request.body.id_card, function (err, result) {
             if (err) {
                 console.log(err);
@@ -29,6 +29,7 @@ router.post('/', function (request, response) {
                 }
                 else {
                     console.log("Wrong ID or pincode");
+                    console.log(result);
                     response.send(false);
                 }
             }
