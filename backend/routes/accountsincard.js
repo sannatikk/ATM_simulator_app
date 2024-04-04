@@ -9,14 +9,8 @@ router.get('/:id', function (request, response) {
             response.send(err);
         }
         else {
-            if (result.length === 1) {
-                console.log(result[0]);
-                response.json(result[0]);
-            }
-            else {
-                console.log(result);
-                response.json(result);
-            }
+            console.log(result);
+            response.json(result);
         }
     });
 });
