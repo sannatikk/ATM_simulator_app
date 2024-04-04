@@ -12,14 +12,17 @@ CONFIG += c++17
 
 SOURCES += \
     environment.cpp \
+    keyboard.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     environment.h \
+    keyboard.h \
     mainwindow.h
 
 FORMS += \
+    keyboard.ui \
     mainwindow.ui
 
 # Default rules for deployment.

@@ -22,6 +22,11 @@ MainWindow::MainWindow(QWidget *parent)
     //Connection for sending users login parameters to LoginHandler library
     connect(this, SIGNAL(loginSignal(QString,QString)),
             LoginHandler_dll, SLOT(handleLogin(QString,QString)));
+
+    // HUOM TÄMÄN OLEN LISÄNNYT
+    QString test_id = "0B00320D2B";
+    setSerialID(test_id);
+    // TÄHÄN LOPPUU LISÄTYT
 }
 
 MainWindow::~MainWindow()
@@ -52,7 +57,8 @@ void MainWindow::setPincode(QString data)
 
 void MainWindow::handleLoginResponse(QByteArray response)
 {
-    if(response=="-4078" || response.length()==0){
+    // note for below: error -61 is mac equivalent of widows error -4078
+    if (response == "-61" || response == "-4078" || response.length()==0){
 
         qDebug() << "Database connection problem";
     }
@@ -63,7 +69,10 @@ void MainWindow::handleLoginResponse(QByteArray response)
             qDebug() << response;
             delete PinUI_dll;
 
-            //Open userMenu
+            // tähän haara jossa tarkistetaan onko kortteja 1/2
+            // jos 2 niin avataan erillinen valintaikkuna
+            // muuten jatketaan suoraan main user menuun
+            // open userMenu
         }
         //If login fails
         else{
