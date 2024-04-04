@@ -25,7 +25,6 @@ void PinUI::handleButtonClick()
 
 void PinUI::handleNumberClick(QString n)
 {
-    qDebug() << "Handling button press" << n;
     enteredNumber += n;
 
     stars.clear();

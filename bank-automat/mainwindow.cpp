@@ -23,10 +23,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, SIGNAL(loginSignal(QString,QString)),
             LoginHandler_dll, SLOT(handleLogin(QString,QString)));
 
-    // HUOM TÄMÄN OLEN LISÄNNYT
-    QString test_id = "0B00320D2B";
-    setSerialID(test_id);
-    // TÄHÄN LOPPUU LISÄTYT
+    // these 2 lines are for bypassing rfid reader in case you don't have it for testing, change test_id value to the id_card you want
+    // QString test_id = "0B00320D2B";
+    // setSerialID(test_id);
 }
 
 MainWindow::~MainWindow()

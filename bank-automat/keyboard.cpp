@@ -1,3 +1,7 @@
+// HUOM!
+// Tämä tiedosto ei ole käytössä. Olen jättänyt sen roikkumaan tänne varan vuoksi, mutta sen voi poistaa jos/kun siltä tuntuu.
+// Kaikki tarvittava on PinUI-kirjastossa.
+
 #include "keyboard.h"
 #include "ui_keyboard.h"
 #include <QDebug>

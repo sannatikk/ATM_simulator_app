@@ -1,3 +1,7 @@
+// HUOM!
+// Tämä tiedosto ei ole käytössä. Olen jättänyt sen roikkumaan tänne varan vuoksi, mutta sen voi poistaa jos/kun siltä tuntuu.
+// Kaikki tarvittava on PinUI-kirjastossa.
+
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 #include <QDialog>
