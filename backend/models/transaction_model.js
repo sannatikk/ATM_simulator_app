@@ -15,6 +15,9 @@ const transaction = {
     },
     deleteTransaction(id_transaction,callback){
         return db.query("DELETE FROM transaction_log WHERE id_transaction=?",[id_transaction],callback);
+    },
+    getAccountTransactions(id_account, callback){
+        return db.query("SELECT * FROM transaction_log WHERE id_account=?", [id_account], callback);
     }
 }
 

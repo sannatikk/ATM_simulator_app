@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "usermenu.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -24,8 +25,8 @@ MainWindow::MainWindow(QWidget *parent)
             LoginHandler_dll, SLOT(handleLogin(QString,QString)));
 
     // these 2 lines are for bypassing rfid reader in case you don't have it for testing, change test_id value to the id_card you want
-    // QString test_id = "0B00320D2B";
-    // setSerialID(test_id);
+    QString test_id = "0B00320D2B";
+    setSerialID(test_id);
 }
 
 MainWindow::~MainWindow()
@@ -72,6 +73,13 @@ void MainWindow::handleLoginResponse(QByteArray response)
             // jos 2 niin avataan erillinen valintaikkuna
             // muuten jatketaan suoraan main user menuun
             // open userMenu
+
+            // TÄMÄN OLEN LISÄNNYT ITSE
+            // etsi bäkistä etunimi kutsumalla jotain
+            // QString fname = "abc";
+            UserMenu *objectUserMenu = new UserMenu(this);
+            objectUserMenu->open();
+            // ITSE LISÄTYT LOPPUU TÄHÄN
         }
         //If login fails
         else{
