@@ -11,17 +11,20 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    accountselect.cpp \
     environment.cpp \
     keyboard.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    accountselect.h \
     environment.h \
     keyboard.h \
     mainwindow.h
 
 FORMS += \
+    accountselect.ui \
     keyboard.ui \
     mainwindow.ui
 
