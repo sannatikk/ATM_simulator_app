@@ -67,11 +67,19 @@ void MainWindow::handleLoginResponse(QByteArray response)
             qDebug() << "Login success";
             qDebug() << response;
             delete PinUI_dll;
+            this->setWebToken(response);
 
-            // tähän haara jossa tarkistetaan onko kortteja 1/2
-            // jos 2 niin avataan erillinen valintaikkuna
-            // muuten jatketaan suoraan main user menuun
-            // open userMenu
+            //Request for checking is there 1 or 2 accounts in card
+            QString site_url=Environment::getBaseUrl()+"/accountsincard/"+serialID;
+            QNetworkRequest request((site_url));
+            QByteArray myToken="Bearer "+webToken;
+            request.setRawHeader(QByteArray("Authorization"), myToken);
+
+            checkAccountsManager = new QNetworkAccessManager(this);
+            connect(checkAccountsManager, SIGNAL(finished(QNetworkReply*)),
+                    this, SLOT(checkAccountsSlot(QNetworkReply*)));
+
+            reply = checkAccountsManager->get(request);
         }
         //If login fails
         else{
@@ -81,3 +89,38 @@ void MainWindow::handleLoginResponse(QByteArray response)
     }
 }
 
+void MainWindow::checkAccountsSlot(QNetworkReply *reply)
+{
+    response_data=reply->readAll();
+
+    qDebug() << "Data received: " << response_data;
+
+    QJsonDocument json_doc = QJsonDocument::fromJson(response_data);
+    QJsonArray jsonArray = json_doc.array();
+
+    int objectCount = jsonArray.size();
+
+    /*Check number of accounts in card
+    If one account -> UserMenu
+    If 2 accounts -> AccountSelect*/
+    qDebug() << "Number of accounts in card" << objectCount;
+    if(objectCount > 1) {
+        //accountSelect->
+        AccountSelect *accountSelectPtr = new AccountSelect(this);
+        accountSelectPtr->setWebToken(webToken);
+        accountSelectPtr->setAccountIDs(jsonArray);
+        accountSelectPtr->show();
+    }
+    else{
+        qDebug() << "One account found: " << jsonArray[0];
+        //->userMenu
+    }
+
+    reply->deleteLater();
+    checkAccountsManager->deleteLater();
+}
+
+void MainWindow::setWebToken(const QByteArray &newWebToken)
+{
+    webToken = newWebToken;
+}

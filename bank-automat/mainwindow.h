@@ -6,6 +6,7 @@
 #include "pinui.h"
 #include "loginhandler.h"
 #include "environment.h"
+#include "accountselect.h"
 #include <QtNetwork>
 #include <QNetworkAccessManager>
 #include <QJsonDocument>
@@ -26,6 +27,8 @@ public:
 
     //void reset();
 
+    void setWebToken(const QByteArray &newWebToken);
+
 signals:
     void closeSerialSignal();
     void openSerialSignal();
@@ -35,12 +38,18 @@ private slots:
     void setSerialID(QString);
     void setPincode(QString);
     void handleLoginResponse(QByteArray);
+    void checkAccountsSlot(QNetworkReply *reply);
 
 private:
     Ui::MainWindow *ui;
     RFIDReader *RFID_dll;
     PinUI *PinUI_dll;
     LoginHandler *LoginHandler_dll;
+
+    QNetworkAccessManager *checkAccountsManager;
+    QNetworkReply *reply;
+    QByteArray response_data;
+    QByteArray webToken;
 
     QString serialID;
     QString pincode;
