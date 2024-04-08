@@ -9,7 +9,7 @@ router.post('/', function(request, response){
             response.send(err);
         }
         else {
-            response.json(result);
+            response.json(result.affectedRows);
         }
     });
 });

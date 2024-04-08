@@ -15,18 +15,21 @@ SOURCES += \
     environment.cpp \
     keyboard.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    usermenu.cpp
 
 HEADERS += \
     accountselect.h \
     environment.h \
     keyboard.h \
-    mainwindow.h
+    mainwindow.h \
+    usermenu.h
 
 FORMS += \
     accountselect.ui \
     keyboard.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    usermenu.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

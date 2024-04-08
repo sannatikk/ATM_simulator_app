@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "usermenu.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -24,8 +25,10 @@ MainWindow::MainWindow(QWidget *parent)
             LoginHandler_dll, SLOT(handleLogin(QString,QString)));
 
     // these 2 lines are for bypassing rfid reader in case you don't have it for testing, change test_id value to the id_card you want
-    // QString test_id = "0B00320D2B";
-    // setSerialID(test_id);
+    //QString test_id = "0B00320D2B"; // debit only card
+    QString test_id = "0600062E1F"; // credit only card
+    //QString test_id = "06000D5C69"; // combination card
+    setSerialID(test_id);
 }
 
 MainWindow::~MainWindow()
@@ -68,7 +71,6 @@ void MainWindow::handleLoginResponse(QByteArray response)
             qDebug() << response;
             delete PinUI_dll;
             this->setWebToken(response);
-
             //Request for checking is there 1 or 2 accounts in card
             QString site_url=Environment::getBaseUrl()+"/accountsincard/"+serialID;
             QNetworkRequest request((site_url));
@@ -112,8 +114,23 @@ void MainWindow::checkAccountsSlot(QNetworkReply *reply)
         accountSelectPtr->show();
     }
     else{
+
+        // receive info as index within jsonarray
         qDebug() << "One account found: " << jsonArray[0];
-        //->userMenu
+
+        // pluck out jsonobject from array
+        QJsonObject jsonObj = jsonArray[0].toObject();
+        qDebug() << jsonObj;
+
+        // convert to qstring
+        QString accountID = jsonObj["id_account"].toString();
+        qDebug() << "Account number in QString: " << accountID;
+
+        // usermenu->
+        UserMenu *userMenuPtr = new UserMenu(this);
+        userMenuPtr->show();
+        userMenuPtr->setWebToken(webToken);
+        userMenuPtr->setIdAccount(accountID);
     }
 
     reply->deleteLater();

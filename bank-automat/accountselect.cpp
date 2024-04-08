@@ -1,5 +1,6 @@
 #include "accountselect.h"
 #include "ui_accountselect.h"
+#include "usermenu.h"
 
 AccountSelect::AccountSelect(QWidget *parent) :
     QDialog(parent),
@@ -35,6 +36,9 @@ void AccountSelect::setAccountIDs(const QJsonArray &newAccountIDs)
 //Request for gettin account data
 void AccountSelect::handleCardTypeRequest()
 {
+
+    // Huom tämä loop ei välttis aina aja kahta requestiä läpi, älä luota toimivuuteen! Muokataan vielä
+
     //Loop for accounts in QArray
     for (const QJsonValue &value : accountIDs) {
         if (value.isObject()) {
@@ -48,7 +52,6 @@ void AccountSelect::handleCardTypeRequest()
             accountManager = new QNetworkAccessManager(this);
             connect(accountManager, SIGNAL(finished(QNetworkReply*)),
                     this, SLOT(setAccountsSlot(QNetworkReply*)));
-
             reply = accountManager->get(request);
         }
         else {
@@ -68,6 +71,7 @@ void AccountSelect::setAccountsSlot(QNetworkReply *reply)
     //QString limit = jsonObj["credit_limit"]; //This returns double, Change later if better solution
     QString limit = jsonObj.value("credit_limit").toString();
 
+    qDebug() << "Account ID in setAccountsSlot: " << accountID;
     //Handle account set by credit limit
     if (!jsonObj.isEmpty()) {
         if (limit != "0.00") {
@@ -98,12 +102,22 @@ void AccountSelect::setDebitAccount(const QString &newDebitAccount)
 
 void AccountSelect::on_btnDebit_clicked()
 {
-    //debitAccount
+    // usermenu->
+    qDebug() << "Account ID: " << debitAccount;
+    UserMenu *userMenuPtr = new UserMenu(this);
+    userMenuPtr->show();
+    userMenuPtr->setWebToken(webToken);
+    userMenuPtr->setIdAccount(debitAccount);
 }
 
 
 void AccountSelect::on_btnCredit_clicked()
 {
-    //creditAccount
+    // usermenu->
+    qDebug() << "Account ID: " << creditAccount;
+    UserMenu *userMenuPtr = new UserMenu(this);
+    userMenuPtr->show();
+    userMenuPtr->setWebToken(webToken);
+    userMenuPtr->setIdAccount(creditAccount);
 }
 
