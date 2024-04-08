@@ -69,20 +69,6 @@ void MainWindow::handleLoginResponse(QByteArray response)
             qDebug() << response;
             delete PinUI_dll;
             this->setWebToken(response);
-
-<<<<<<< HEAD
-            // tähän haara jossa tarkistetaan onko kortteja 1/2
-            // jos 2 niin avataan erillinen valintaikkuna
-            // muuten jatketaan suoraan main user menuun
-            // open userMenu
-
-            // TÄMÄN OLEN LISÄNNYT ITSE
-            // etsi bäkistä etunimi kutsumalla jotain
-            // QString fname = "abc";
-            UserMenu *objectUserMenu = new UserMenu(this);
-            objectUserMenu->open();
-            // ITSE LISÄTYT LOPPUU TÄHÄN
-=======
             //Request for checking is there 1 or 2 accounts in card
             QString site_url=Environment::getBaseUrl()+"/accountsincard/"+serialID;
             QNetworkRequest request((site_url));
@@ -94,7 +80,6 @@ void MainWindow::handleLoginResponse(QByteArray response)
                     this, SLOT(checkAccountsSlot(QNetworkReply*)));
 
             reply = checkAccountsManager->get(request);
->>>>>>> main
         }
         //If login fails
         else{
@@ -129,6 +114,16 @@ void MainWindow::checkAccountsSlot(QNetworkReply *reply)
     else{
         qDebug() << "One account found: " << jsonArray[0];
         //->userMenu
+
+        QJsonObject jsonObj = jsonArray[0].toObject(); // Convert QJsonValue to QJsonObject
+        qDebug() << jsonObj;
+        QString accountID = jsonObj["id_account"].toString();
+        qDebug() << "Account number in QString: " << accountID;
+
+        UserMenu *userMenuPtr = new UserMenu(this);
+        userMenuPtr->show();
+        userMenuPtr->setWebToken(webToken);
+        userMenuPtr->setIdAccount(accountID);
     }
 
     reply->deleteLater();

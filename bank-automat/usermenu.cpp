@@ -8,7 +8,7 @@ UserMenu::UserMenu(QWidget *parent)
 {
     ui->setupUi(this);
 
-    webToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9jYXJkIjoiMDYwMDA2MkUxRiIsImlhdCI6MTcxMjMwMTQzMCwiZXhwIjoxNzEyMzA1MDMwfQ.MRAOtzTHuxpwt78mxIKJ7IJoiB0VdjTuIRLkncPL4_o";
+    //webToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9jYXJkIjoiMDYwMDA2MkUxRiIsImlhdCI6MTcxMjU1MzgyNCwiZXhwIjoxNzEyNTU3NDI0fQ.apL7ALAB96YeMMYU1gxpEG_ktiIhtp2UJNJtbZq_Zvs";
 
     balanceManager = new QNetworkAccessManager(this);
     connect(balanceManager, SIGNAL(finished(QNetworkReply*)),
@@ -47,7 +47,7 @@ void UserMenu::transactionSlot(QNetworkReply *reply)
 void UserMenu::on_btnViewTransactions_clicked()
 {
     // Test value for idAccount
-    idAccount = "FI2110000011111111";
+    //idAccount = "FI2110000011111111";
 
     QString site_url = Environment::getBaseUrl() + "/accounttransactions/" + idAccount;
     QNetworkRequest request(site_url);
@@ -79,7 +79,7 @@ void UserMenu::balanceSlot(QNetworkReply *reply)
 void UserMenu::on_btnViewBalance_clicked()
 {
     // Test value for idAccount
-    idAccount = "FI2110000011111111";
+    //idAccount = "FI2110000011111111";
 
     QString site_url = Environment::getBaseUrl() + "/balance/" + idAccount;
     QNetworkRequest request(site_url);
@@ -90,15 +90,17 @@ void UserMenu::on_btnViewBalance_clicked()
     // Send the request
     balanceManager->get(request);
 
-    // Balance *objectBalance = new Balance(this);
-    // objectBalance->open();
-    // objectBalance->setAmount(balance)"
+    // Balance *balancePtr = new Balance(this);
+    // balancePtr->open();
+    // balancePtr->setAmount(balance);
 }
 
 void UserMenu::on_btnWithdraw_clicked()
 {
-    // Withdrawal *objectWithdrawal = new Withdrawal(this);
-    // objectWithdrawal->open();
+    // Withdrawal *withdrawalPtr = new Withdrawal(this);
+    // withdrawalPtr->open();
+    // withdrawalPtr->setWebToken(webToken);
+    // withdrawalPtr->setIdAccount(idAccount);
 }
 
 void UserMenu::on_btnLogout_clicked()
