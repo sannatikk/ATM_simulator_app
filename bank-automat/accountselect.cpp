@@ -28,7 +28,7 @@ void AccountSelect::setWebToken(const QByteArray &newWebToken)
 void AccountSelect::setAccountIDs(const QJsonArray &newAccountIDs)
 {
     accountIDs = newAccountIDs;
-    qDebug() << "AccountSelect AccountIDs setted";
+    qDebug() << "AccountSelect AccountIDs setted: " << accountIDs;
 
     emit accountIDsChangedSignal();
 }
@@ -57,6 +57,9 @@ void AccountSelect::handleCardTypeRequest()
         else {
             qDebug() << "Error in received data";
         }
+        QEventLoop loop;
+        QTimer::singleShot(1000, &loop, &QEventLoop::quit);
+        loop.exec(); // This will pause the execution until the event loop is quit
     }
 }
 
@@ -68,7 +71,6 @@ void AccountSelect::setAccountsSlot(QNetworkReply *reply)
     QJsonDocument json_doc = QJsonDocument::fromJson(response_data);
     QJsonObject jsonObj = json_doc.object();
     QString accountID = jsonObj["id_account"].toString();
-    //QString limit = jsonObj["credit_limit"]; //This returns double, Change later if better solution
     QString limit = jsonObj.value("credit_limit").toString();
 
     qDebug() << "Account ID in setAccountsSlot: " << accountID;
@@ -119,5 +121,12 @@ void AccountSelect::on_btnCredit_clicked()
     userMenuPtr->show();
     userMenuPtr->setWebToken(webToken);
     userMenuPtr->setIdAccount(creditAccount);
+}
+
+
+void AccountSelect::on_btnLogout_clicked()
+{
+    emit logoutSignal();
+    delete this;
 }
 
