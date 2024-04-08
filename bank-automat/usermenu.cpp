@@ -8,8 +8,6 @@ UserMenu::UserMenu(QWidget *parent)
 {
     ui->setupUi(this);
 
-    //webToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9jYXJkIjoiMDYwMDA2MkUxRiIsImlhdCI6MTcxMjU1MzgyNCwiZXhwIjoxNzEyNTU3NDI0fQ.apL7ALAB96YeMMYU1gxpEG_ktiIhtp2UJNJtbZq_Zvs";
-
     balanceManager = new QNetworkAccessManager(this);
     connect(balanceManager, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(balanceSlot(QNetworkReply*)));
@@ -46,9 +44,6 @@ void UserMenu::transactionSlot(QNetworkReply *reply)
 
 void UserMenu::on_btnViewTransactions_clicked()
 {
-    // Test value for idAccount
-    //idAccount = "FI2110000011111111";
-
     QString site_url = Environment::getBaseUrl() + "/accounttransactions/" + idAccount;
     QNetworkRequest request(site_url);
 
@@ -78,8 +73,6 @@ void UserMenu::balanceSlot(QNetworkReply *reply)
 
 void UserMenu::on_btnViewBalance_clicked()
 {
-    // Test value for idAccount
-    //idAccount = "FI2110000011111111";
 
     QString site_url = Environment::getBaseUrl() + "/balance/" + idAccount;
     QNetworkRequest request(site_url);
@@ -93,6 +86,8 @@ void UserMenu::on_btnViewBalance_clicked()
     // Balance *balancePtr = new Balance(this);
     // balancePtr->open();
     // balancePtr->setAmount(balance);
+    // balancePtr->setWebToken(webToken);
+    // balancePtr->setIdAccount(idAccount)
 }
 
 void UserMenu::on_btnWithdraw_clicked()

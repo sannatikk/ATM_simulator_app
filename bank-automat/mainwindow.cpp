@@ -25,7 +25,9 @@ MainWindow::MainWindow(QWidget *parent)
             LoginHandler_dll, SLOT(handleLogin(QString,QString)));
 
     // these 2 lines are for bypassing rfid reader in case you don't have it for testing, change test_id value to the id_card you want
-    QString test_id = "0B00320D2B";
+    //QString test_id = "0B00320D2B"; // debit only card
+    QString test_id = "0600062E1F"; // credit only card
+    //QString test_id = "06000D5C69"; // combination card
     setSerialID(test_id);
 }
 
@@ -112,14 +114,19 @@ void MainWindow::checkAccountsSlot(QNetworkReply *reply)
         accountSelectPtr->show();
     }
     else{
-        qDebug() << "One account found: " << jsonArray[0];
-        //->userMenu
 
-        QJsonObject jsonObj = jsonArray[0].toObject(); // Convert QJsonValue to QJsonObject
+        // receive info as index within jsonarray
+        qDebug() << "One account found: " << jsonArray[0];
+
+        // pluck out jsonobject from array
+        QJsonObject jsonObj = jsonArray[0].toObject();
         qDebug() << jsonObj;
+
+        // convert to qstring
         QString accountID = jsonObj["id_account"].toString();
         qDebug() << "Account number in QString: " << accountID;
 
+        // usermenu->
         UserMenu *userMenuPtr = new UserMenu(this);
         userMenuPtr->show();
         userMenuPtr->setWebToken(webToken);
