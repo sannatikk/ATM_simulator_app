@@ -24,6 +24,9 @@ public:
     void setWebToken(const QByteArray &newWebToken);
     void setIdAccount(const QString &newIdaccount);
 
+signals:
+    void transactionDataSignal(QByteArray);
+
 private slots:
     void on_btnViewBalance_clicked();
     void on_btnViewTransactions_clicked();
@@ -39,6 +42,7 @@ private:
     QNetworkAccessManager *balanceManager;
     QNetworkAccessManager *transactionManager;
     double balance;
+    QByteArray transactionResponseData;
 };
 
 #endif // USERMENU_H

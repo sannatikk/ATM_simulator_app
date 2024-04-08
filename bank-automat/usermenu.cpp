@@ -1,4 +1,5 @@
 #include "usermenu.h"
+#include "transactions.h"
 #include "ui_usermenu.h"
 #include "environment.h"
 
@@ -24,20 +25,10 @@ UserMenu::~UserMenu()
 
 void UserMenu::transactionSlot(QNetworkReply *reply)
 {
-    QByteArray responseData = reply->readAll();
+    transactionResponseData = reply->readAll();
+    qDebug() << "Response Data:" << transactionResponseData;
 
-    qDebug() << "Response Data:" << responseData;
-
-    QJsonDocument json_doc = QJsonDocument::fromJson(responseData);
-
-    // QJsonArray json_array = json_doc.array();
-    // for (int i = 0; i < json_array.size(); ++i) {
-    //     if (json_array[i].toString() == "/") {
-    //         json_array.removeAt(i);
-    //         --i; // Adjust index to account for removed element
-    //     }
-    // }
-    // qDebug() << "Parsed array:" << json_array;
+    emit transactionDataSignal(transactionResponseData);
 
     reply->deleteLater();
 }
@@ -53,8 +44,13 @@ void UserMenu::on_btnViewTransactions_clicked()
     // Send the request
     transactionManager->get(request);
 
-    // create ViewTransactions class object
-    // open ViewTransactions class form
+    Transactions *transactionsPtr = new Transactions(this);
+    transactionsPtr->show();
+    transactionsPtr->setIdAccount(idAccount);
+
+    connect(this, SIGNAL(transactionDataSignal(QByteArray)),
+            transactionsPtr, SLOT(setTransactionData(QByteArray)));
+
 }
 
 void UserMenu::balanceSlot(QNetworkReply *reply)
