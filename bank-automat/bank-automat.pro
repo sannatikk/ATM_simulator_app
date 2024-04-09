@@ -16,6 +16,7 @@ SOURCES += \
     keyboard.cpp \
     main.cpp \
     mainwindow.cpp \
+    transactions.cpp \
     usermenu.cpp
 
 HEADERS += \
@@ -23,12 +24,14 @@ HEADERS += \
     environment.h \
     keyboard.h \
     mainwindow.h \
+    transactions.h \
     usermenu.h
 
 FORMS += \
     accountselect.ui \
     keyboard.ui \
     mainwindow.ui \
+    transactions.ui \
     usermenu.ui
 
 # Default rules for deployment.
