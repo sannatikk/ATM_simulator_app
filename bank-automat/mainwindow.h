@@ -39,6 +39,7 @@ private slots:
     void setPincode(QString);
     void handleLoginResponse(QByteArray);
     void checkAccountsSlot(QNetworkReply *reply);
+    void handleLogoutSlot();
 
 private:
     Ui::MainWindow *ui;
