@@ -19,7 +19,6 @@ public:
 private slots:
     void setTransactionData(const QByteArray &newTransactionData);
 
-    void on_btnLogout_clicked();
     void on_btnReturn_clicked();
     void on_btnPrevious5_clicked();
     void on_btnNext5_clicked();

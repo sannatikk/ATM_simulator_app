@@ -41,6 +41,9 @@
    <property name="text">
     <string>Welcome!</string>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
   </widget>
   <widget class="QPushButton" name="btnViewBalance">
    <property name="geometry">

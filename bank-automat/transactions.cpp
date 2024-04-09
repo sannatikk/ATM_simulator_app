@@ -12,8 +12,6 @@ Transactions::Transactions(QWidget *parent)
     , ui(new Ui::Transactions)
 {
     ui->setupUi(this);
-
-
 }
 
 Transactions::~Transactions()
@@ -21,24 +19,15 @@ Transactions::~Transactions()
     delete ui;
 }
 
-void Transactions::on_btnLogout_clicked()
-{
-    this->close();
-    // signaali metodiin jolla nollataan kaikki?
-}
-
-
 void Transactions::on_btnReturn_clicked()
 {
-    this->close();
+    delete this;
 }
-
 
 void Transactions::on_btnPrevious5_clicked()
 {
 
 }
-
 
 void Transactions::on_btnNext5_clicked()
 {
@@ -58,50 +47,47 @@ void Transactions::setTransactionData(const QByteArray &newTransactionData)
 
     // parse into json document
     QJsonDocument jsonDoc = QJsonDocument::fromJson(transactionData);
-
     // extract array
     QJsonArray jsonArray = jsonDoc.array();
 
-    // Iterate over each object in the JSON array
+    // loop through array to fix weird timestamp
     for (QJsonValueRef value : jsonArray) {
         if (value.isObject()) {
             QJsonObject obj = value.toObject();
-
-            // Modify transaction_time field
             QString transactionTime = obj["transaction_time"].toString();
-
-            // Replace 'T' with a space and remove 'Z'
             transactionTime.replace('T', ' ').replace(".000Z", "");
-
-            // Update the object with modified transaction_time
             obj["transaction_time"] = transactionTime;
-
-            // Assign the modified object back to the JSON array
             value = obj;
         }
     }
 
+    // create new array to store items in reverse order
+    QJsonArray reversedArray;
+    // loop through the original array in reverse order and append items to the reverse array
+    for (int i = jsonArray.size() - 1; i >= 0; --i) {
+        reversedArray.append(jsonArray.at(i));
+    }
+    // update original array
+    jsonArray = reversedArray;
 
     // create model for the table view
     QStandardItemModel *model = new QStandardItemModel();
 
     // set headers for table view
-    model->setHorizontalHeaderLabels({"Transaction ID", "Transaction Type", "Transaction Amount", "Transaction Time"});
+    model->setHorizontalHeaderLabels({"Transaction Type", "Transaction Amount", "Transaction Time"});
 
     // loop through array
     for (const QJsonValue &value : jsonArray) {
         if (value.isObject()) {
             const QJsonObject obj = value.toObject();
 
-            // extract relevant fields
-            QString idTransaction = QString::number(obj["id_transaction"].toInt());
+            // extract wanted fields
             QString transactionType = obj["transaction_type"].toString();
             QString transactionAmount = obj["transaction_amount"].toString();
             QString transactionTime = obj["transaction_time"].toString();
 
             // create qstandarditem for each field
             QList<QStandardItem*> rowItems;
-            rowItems << new QStandardItem(idTransaction);
             rowItems << new QStandardItem(transactionType);
             rowItems << new QStandardItem(transactionAmount);
             rowItems << new QStandardItem(transactionTime);
@@ -110,10 +96,11 @@ void Transactions::setTransactionData(const QByteArray &newTransactionData)
             model->appendRow(rowItems);
         }
     }
-
-    // set model to tableview
+    // send model to tableview
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
-
+    ui->tableView->setSortingEnabled(true);
+    ui->tableView->sortByColumn(2, Qt::DescendingOrder);
+    //ui->tableView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 }
 
