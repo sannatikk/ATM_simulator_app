@@ -25,7 +25,11 @@ public:
     void setIdAccount(const QString &newIdaccount);
 
 signals:
+<<<<<<< HEAD
     void transactionDataSignal(QByteArray);
+=======
+    void logoutSignal();
+>>>>>>> main
 
 private slots:
     void on_btnViewBalance_clicked();

@@ -97,8 +97,10 @@ void UserMenu::on_btnWithdraw_clicked()
 
 void UserMenu::on_btnLogout_clicked()
 {
-    close();
+    //close();
     // tähän jokin signaali, jolla pääsee jonkinlaiseen "reset"-funktioon?
+    emit logoutSignal();
+    delete this;
 }
 
 void UserMenu::setIdAccount(const QString &newIdAccount)
