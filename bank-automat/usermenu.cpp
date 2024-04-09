@@ -28,6 +28,14 @@ void UserMenu::transactionSlot(QNetworkReply *reply)
     transactionResponseData = reply->readAll();
     qDebug() << "Response Data:" << transactionResponseData;
 
+    Transactions *transactionsPtr = new Transactions(this);
+
+    connect(this, SIGNAL(transactionDataSignal(QByteArray)),
+            transactionsPtr, SLOT(setTransactionData(QByteArray)));
+
+    transactionsPtr->setIdAccount(idAccount);
+    transactionsPtr->show();
+
     emit transactionDataSignal(transactionResponseData);
 
     reply->deleteLater();
@@ -43,13 +51,6 @@ void UserMenu::on_btnViewTransactions_clicked()
 
     // Send the request
     transactionManager->get(request);
-
-    Transactions *transactionsPtr = new Transactions(this);
-    transactionsPtr->show();
-    transactionsPtr->setIdAccount(idAccount);
-
-    connect(this, SIGNAL(transactionDataSignal(QByteArray)),
-            transactionsPtr, SLOT(setTransactionData(QByteArray)));
 
 }
 

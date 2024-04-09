@@ -12,6 +12,10 @@ Transactions::Transactions(QWidget *parent)
     , ui(new Ui::Transactions)
 {
     ui->setupUi(this);
+
+    // create model for the table view
+    model = new QStandardItemModel();
+
 }
 
 Transactions::~Transactions()
@@ -26,12 +30,73 @@ void Transactions::on_btnReturn_clicked()
 
 void Transactions::on_btnPrevious5_clicked()
 {
+    int length = formattedArray.size();
+
+    // make sure you can't click into blank screens
+
+    if (startIndex < length-5) {
+
+        startIndex += 5;
+        qDebug() << "Start index: " << startIndex;
+
+        if (startIndex > -1) {
+            model->clear();
+            showInModel();
+        }
+    }
 
 }
 
 void Transactions::on_btnNext5_clicked()
 {
 
+    // make sure you can't click into negative indices
+
+    if (startIndex > 0) {
+
+        startIndex -= 5;
+        qDebug() << "Start index: " << startIndex;
+
+        if (startIndex > -1) {
+            model->clear();
+            showInModel();
+    }
+    }
+
+}
+
+void Transactions::showInModel()
+{
+    model->clear();
+
+    // set headers for table view
+    model->setHorizontalHeaderLabels({"Transaction Type", "Transaction Amount", "Transaction Time"});
+
+    int itemsToAdd = qMin(5, formattedArray.size() - startIndex); // Ensure we don't exceed the array size
+    // Loop through the desired range
+    for (int i = startIndex; i < startIndex + itemsToAdd; ++i) {
+        const QJsonValue &value = formattedArray.at(i); // Use at() method to avoid out-of-range access
+        if (value.isObject()) {
+            const QJsonObject obj = value.toObject();
+
+            // extract wanted fields
+            QString transactionType = obj["transaction_type"].toString();
+            QString transactionAmount = obj["transaction_amount"].toString();
+            QString transactionTime = obj["transaction_time"].toString();
+
+            // create qstandarditem for each field
+            QList<QStandardItem*> rowItems;
+            rowItems << new QStandardItem(transactionType);
+            rowItems << new QStandardItem(transactionAmount);
+            rowItems << new QStandardItem(transactionTime);
+
+            // add row to model
+            model->appendRow(rowItems);
+        }
+    }
+    // send model to tableview
+    ui->tableView->setModel(model);
+    ui->tableView->resizeColumnsToContents();
 }
 
 void Transactions::setIdAccount(const QString &newIdAccount)
@@ -68,39 +133,9 @@ void Transactions::setTransactionData(const QByteArray &newTransactionData)
         reversedArray.append(jsonArray.at(i));
     }
     // update original array
-    jsonArray = reversedArray;
+    formattedArray = reversedArray;
 
-    // create model for the table view
-    QStandardItemModel *model = new QStandardItemModel();
+    showInModel();
 
-    // set headers for table view
-    model->setHorizontalHeaderLabels({"Transaction Type", "Transaction Amount", "Transaction Time"});
-
-    // loop through array
-    for (const QJsonValue &value : jsonArray) {
-        if (value.isObject()) {
-            const QJsonObject obj = value.toObject();
-
-            // extract wanted fields
-            QString transactionType = obj["transaction_type"].toString();
-            QString transactionAmount = obj["transaction_amount"].toString();
-            QString transactionTime = obj["transaction_time"].toString();
-
-            // create qstandarditem for each field
-            QList<QStandardItem*> rowItems;
-            rowItems << new QStandardItem(transactionType);
-            rowItems << new QStandardItem(transactionAmount);
-            rowItems << new QStandardItem(transactionTime);
-
-            // add row to model
-            model->appendRow(rowItems);
-        }
-    }
-    // send model to tableview
-    ui->tableView->setModel(model);
-    ui->tableView->resizeColumnsToContents();
-    ui->tableView->setSortingEnabled(true);
-    ui->tableView->sortByColumn(2, Qt::DescendingOrder);
-    //ui->tableView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 }
 

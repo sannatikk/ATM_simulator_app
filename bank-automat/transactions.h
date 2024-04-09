@@ -1,7 +1,9 @@
 #ifndef TRANSACTIONS_H
 #define TRANSACTIONS_H
 
+#include <QJsonArray>
 #include <QDialog>
+#include <QStandardItemModel>
 
 namespace Ui {
 class Transactions;
@@ -27,6 +29,11 @@ private:
     Ui::Transactions *ui;
     QString idAccount;
     QByteArray transactionData;
+    int startIndex = 0;
+    QStandardItemModel *model;
+    void showInModel();
+    QJsonArray formattedArray;
+
 };
 
 #endif // TRANSACTIONS_H
