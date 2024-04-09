@@ -24,6 +24,9 @@ public:
     void setWebToken(const QByteArray &newWebToken);
     void setIdAccount(const QString &newIdaccount);
 
+signals:
+    void logoutSignal();
+
 private slots:
     void on_btnViewBalance_clicked();
     void on_btnViewTransactions_clicked();

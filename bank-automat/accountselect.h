@@ -28,6 +28,7 @@ public:
 
 signals:
     void accountIDsChangedSignal();
+    void logoutSignal();
 
 private slots:
     void handleCardTypeRequest();
@@ -35,6 +36,9 @@ private slots:
 
     void on_btnDebit_clicked();
     void on_btnCredit_clicked();
+
+
+    void on_btnLogout_clicked();
 
 private:
     Ui::AccountSelect *ui;

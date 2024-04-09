@@ -13,6 +13,10 @@ MainWindow::MainWindow(QWidget *parent)
     //Connect closeSerialSignal to library |exe -> RFIDReader
     connect(this, SIGNAL(closeSerialSignal()),
             RFID_dll, SLOT(handleCloseSerial()));
+
+    connect(this, SIGNAL(openSerialSignal()),
+            RFID_dll, SLOT(handleOpenSerial()));
+
     QString url = Environment::getBaseUrl();
     LoginHandler_dll = new LoginHandler(url, this);
 
@@ -26,9 +30,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     // these 2 lines are for bypassing rfid reader in case you don't have it for testing, change test_id value to the id_card you want
     //QString test_id = "0B00320D2B"; // debit only card
-    QString test_id = "0600062E1F"; // credit only card
+    //QString test_id = "0600062E1F"; // credit only card
     //QString test_id = "06000D5C69"; // combination card
-    setSerialID(test_id);
+    //setSerialID(test_id);
 }
 
 MainWindow::~MainWindow()
@@ -112,6 +116,8 @@ void MainWindow::checkAccountsSlot(QNetworkReply *reply)
         accountSelectPtr->setWebToken(webToken);
         accountSelectPtr->setAccountIDs(jsonArray);
         accountSelectPtr->show();
+        connect(accountSelectPtr, SIGNAL(logoutSignal()),
+                this, SLOT(handleLogoutSlot()));
     }
     else{
 
@@ -131,10 +137,20 @@ void MainWindow::checkAccountsSlot(QNetworkReply *reply)
         userMenuPtr->show();
         userMenuPtr->setWebToken(webToken);
         userMenuPtr->setIdAccount(accountID);
+
+        connect(userMenuPtr, SIGNAL(logoutSignal()),
+                this, SLOT(handleLogoutSlot()));
     }
 
     reply->deleteLater();
     checkAccountsManager->deleteLater();
+}
+
+void MainWindow::handleLogoutSlot()
+{
+    qDebug() << "Handling logout...";
+    setWebToken(nullptr);
+    emit openSerialSignal();
 }
 
 void MainWindow::setWebToken(const QByteArray &newWebToken)
