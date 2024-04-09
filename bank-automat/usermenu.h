@@ -25,6 +25,7 @@ public:
     void setIdAccount(const QString &newIdaccount);
 
 signals:
+    void transactionDataSignal(QByteArray);
     void logoutSignal();
 
 private slots:
@@ -42,6 +43,7 @@ private:
     QNetworkAccessManager *balanceManager;
     QNetworkAccessManager *transactionManager;
     double balance;
+    QByteArray transactionResponseData;
 };
 
 #endif // USERMENU_H
