@@ -58,11 +58,7 @@ void AccountSelect::handleCardTypeRequest()
             qDebug() << "Error in received data";
         }
         QEventLoop loop;
-<<<<<<< HEAD
-        QTimer::singleShot(80, &loop, &QEventLoop::quit);
-=======
         QTimer::singleShot(1000, &loop, &QEventLoop::quit);
->>>>>>> main
         loop.exec(); // This will pause the execution until the event loop is quit
     }
 }
