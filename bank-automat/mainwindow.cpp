@@ -10,10 +10,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     RFID_dll = new RFIDReader(this);
 
-    //Connect closeSerialSignal to library |exe -> RFIDReader
+    //Connect closeSerialSignal to RFIDReader
     connect(this, SIGNAL(closeSerialSignal()),
             RFID_dll, SLOT(handleCloseSerial()));
 
+    //Connect openSerialSignal to RFIDReader
     connect(this, SIGNAL(openSerialSignal()),
             RFID_dll, SLOT(handleOpenSerial()));
 
@@ -63,16 +64,22 @@ void MainWindow::setPincode(QString data)
 
 void MainWindow::handleLoginResponse(QByteArray response)
 {
-    // note for below: error -61 is mac equivalent of widows error -4078
+    //Note for below: error -61 is mac equivalent of widows error -4078
     if (response == "-61" || response == "-4078" || response.length()==0){
 
         qDebug() << "Database connection problem";
+
+        QString msg = "Connection problem";
+        emit loginResponseTextSignal(msg);
     }
     else{
         //If login success, token is returned
         if(response!="false"){
             qDebug() << "Login success";
             qDebug() << response;
+            QString msg = "Login Success";
+            emit loginResponseTextSignal(msg);
+
             delete PinUI_dll;
             this->setWebToken(response);
             //Request for checking is there 1 or 2 accounts in card
@@ -91,6 +98,9 @@ void MainWindow::handleLoginResponse(QByteArray response)
         else{
             qDebug() << "Card ID or Pincode doesn't match";
             qDebug() << response;
+
+            QString msg = "Incorrect Attempt, Enter Pin Code";
+            emit loginResponseTextSignal(msg);
         }
     }
 }
@@ -109,32 +119,32 @@ void MainWindow::checkAccountsSlot(QNetworkReply *reply)
     /*Check number of accounts in card
     If one account -> UserMenu
     If 2 accounts -> AccountSelect*/
-    qDebug() << "Number of accounts in card" << objectCount;
+    qDebug() << "Number of accounts in card: " << objectCount;
     if(objectCount > 1) {
         //accountSelect->
         AccountSelect *accountSelectPtr = new AccountSelect(this);
         accountSelectPtr->setWebToken(webToken);
         accountSelectPtr->setAccountIDs(jsonArray);
-        accountSelectPtr->show();
+        accountSelectPtr->open();
         connect(accountSelectPtr, SIGNAL(logoutSignal()),
                 this, SLOT(handleLogoutSlot()));
     }
     else{
 
-        // receive info as index within jsonarray
+        //Receive info as index within jsonarray
         qDebug() << "One account found: " << jsonArray[0];
 
-        // pluck out jsonobject from array
+        //Pluck out jsonobject from array
         QJsonObject jsonObj = jsonArray[0].toObject();
         qDebug() << jsonObj;
 
-        // convert to qstring
+        //Convert to qstring
         QString accountID = jsonObj["id_account"].toString();
         qDebug() << "Account number in QString: " << accountID;
 
         // usermenu->
         UserMenu *userMenuPtr = new UserMenu(this);
-        userMenuPtr->show();
+        userMenuPtr->open();
         userMenuPtr->setWebToken(webToken);
         userMenuPtr->setIdAccount(accountID);
 

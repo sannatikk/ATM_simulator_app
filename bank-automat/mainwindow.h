@@ -25,14 +25,13 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    //void reset();
-
     void setWebToken(const QByteArray &newWebToken);
 
 signals:
     void closeSerialSignal();
     void openSerialSignal();
     void loginSignal(QString, QString);
+    void loginResponseTextSignal(QString);
 
 private slots:
     void setSerialID(QString);

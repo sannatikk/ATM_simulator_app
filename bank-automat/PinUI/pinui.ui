@@ -198,12 +198,12 @@
     <string>Quit</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="infoLabel">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>90</x>
      <y>20</y>
-     <width>131</width>
+     <width>211</width>
      <height>21</height>
     </rect>
    </property>

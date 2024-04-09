@@ -19,6 +19,7 @@ signals:
     void pincodeSignal(QString);
 
 private slots:
+    void setLoginResponseSlot(QString);
     void handleButtonClick();
     void on_btn1_clicked();
     void on_btn2_clicked();

@@ -9,6 +9,8 @@ PinUI::PinUI(QWidget *parent) :
 
     connect(ui->loginButton, SIGNAL(clicked(bool)),
             this, SLOT(handleButtonClick()));
+    connect(this->parent(), SIGNAL(loginResponseTextSignal(QString)),
+            this, SLOT(setLoginResponseSlot(QString)));
 }
 
 PinUI::~PinUI()
@@ -16,10 +18,17 @@ PinUI::~PinUI()
     delete ui;
 }
 
+void PinUI::setLoginResponseSlot(QString msg)
+{
+    //Set response text from login
+    qDebug() << "Login response text :" << msg;
+    ui->infoLabel->setText(msg);
+}
+
 void PinUI::handleButtonClick()
 {
     qDebug() << "Login button pressed";
-    ui->loginButton->setText("Logging in...");
+    ui->infoLabel->setText("Logging in...");
 
     emit pincodeSignal(enteredNumber);
 }
