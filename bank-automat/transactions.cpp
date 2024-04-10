@@ -97,6 +97,7 @@ void Transactions::showInModel()
     // send model to tableview
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
 void Transactions::setIdAccount(const QString &newIdAccount)
