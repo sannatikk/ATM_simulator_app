@@ -22,23 +22,20 @@ AccountSelect::~AccountSelect()
 void AccountSelect::setWebToken(const QByteArray &newWebToken)
 {
     webToken = newWebToken;
-    qDebug() << "AccountSelect WebToken setted: " << webToken;
+    qDebug() << "AccountSelect WebToken set: " << webToken;
 }
 
 void AccountSelect::setAccountIDs(const QJsonArray &newAccountIDs)
 {
     accountIDs = newAccountIDs;
-    qDebug() << "AccountSelect AccountIDs setted: " << accountIDs;
+    qDebug() << "AccountSelect AccountIDs set: " << accountIDs;
 
     emit accountIDsChangedSignal();
 }
 
-//Request for gettin account data
+//Request for getting account data
 void AccountSelect::handleCardTypeRequest()
 {
-
-    // Huom tämä loop ei välttis aina aja kahta requestiä läpi, älä luota toimivuuteen! Muokataan vielä
-
     //Loop for accounts in QArray
     for (const QJsonValue &value : accountIDs) {
         if (value.isObject()) {
@@ -92,13 +89,13 @@ void AccountSelect::setAccountsSlot(QNetworkReply *reply)
 void AccountSelect::setCreditAccount(const QString &newCreditAccount)
 {
     creditAccount = newCreditAccount;
-    qDebug() << "creditAccount setted: " << creditAccount;
+    qDebug() << "creditAccount set: " << creditAccount;
 }
 
 void AccountSelect::setDebitAccount(const QString &newDebitAccount)
 {
     debitAccount = newDebitAccount;
-    qDebug() << "debitAccount setted: " << debitAccount;
+    qDebug() << "debitAccount set: " << debitAccount;
 }
 
 void AccountSelect::on_btnDebit_clicked()
