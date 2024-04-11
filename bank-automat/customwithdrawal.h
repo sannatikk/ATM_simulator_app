@@ -3,6 +3,7 @@
 
 #include <QDialog>
 
+
 namespace Ui {
 class CustomWithdrawal;
 }
@@ -26,9 +27,10 @@ private slots:
     void on_btn8_clicked();
     void on_btn9_clicked();
     void on_btn0_clicked();
-    void on_btnDelete_clicked();
     void on_btnEnter_clicked();
-    void on_btnExit_clicked();
+    void on_btnReturn_clicked();
+    void on_btnLogOut_clicked();
+    void on_btnBackspace_clicked();
 
 signals:
     void sendEnteredNumber(QString);
@@ -37,6 +39,7 @@ private:
     QString enteredNumber;
     void numberClickHandler(QString);
     Ui::CustomWithdrawal *ui;
+    float amount;
 };
 
 #endif // CUSTOMWITHDRAWAL_H

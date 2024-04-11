@@ -79,14 +79,14 @@ void Withdrawal::on_btnOther_clicked()
 void Withdrawal::on_btnReturn_clicked()
 {
     qDebug()<<"Return button pressed";
-    this->close();
+    delete this;
 }
 
 
 void Withdrawal::on_btnLogOut_clicked()
 {
     qDebug()<<"Log out pressed";
-    // tähän tulee joku reset signaali
+    delete this;
 }
 
 void Withdrawal::withdrawalSlot(QNetworkReply *reply)
@@ -101,11 +101,11 @@ void Withdrawal::withdrawalSlot(QNetworkReply *reply)
 
     if (responseDataInteger == 0)
     {
-        ui->responseLabel->setText("Withdrawal successful!");
+        ui->responseLabel->setText("Withdrawal failed!");
     }
     else if (responseDataInteger == 1)
     {
-        ui->responseLabel->setText("Withdrawal failed!");
+        ui->responseLabel->setText("Withdrawal successful!");
     }
     else
     {
@@ -136,8 +136,10 @@ void Withdrawal::handleAmount(float a)
     QString site_url=Environment::getBaseUrl()+"/withdraw/";
     QNetworkRequest request((site_url));
 
-    QByteArray myToken="Bearer"+webToken;
+    QByteArray myToken="Bearer "+webToken;
     request.setRawHeader(QByteArray("Authorization"),(myToken));
     reply = withdrawalManager->post(request, QJsonDocument(jsonObj).toJson());
+
+
 }
 

@@ -17,9 +17,9 @@
    <property name="geometry">
     <rect>
      <x>170</x>
-     <y>90</y>
-     <width>261</width>
-     <height>311</height>
+     <y>50</y>
+     <width>342</width>
+     <height>411</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="formLayout">
@@ -41,10 +41,17 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="0" colspan="2">
-     <widget class="QLineEdit" name="lineEditAmount"/>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </item>
     <item row="2" column="0">
+     <widget class="QLineEdit" name="lineEditAmount"/>
+    </item>
+    <item row="3" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
        <widget class="QPushButton" name="btn1">
@@ -69,7 +76,7 @@
       </item>
      </layout>
     </item>
-    <item row="3" column="0">
+    <item row="4" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QPushButton" name="btn4">
@@ -94,7 +101,7 @@
       </item>
      </layout>
     </item>
-    <item row="4" column="0">
+    <item row="5" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QPushButton" name="btn7">
@@ -119,12 +126,12 @@
       </item>
      </layout>
     </item>
-    <item row="5" column="0">
+    <item row="6" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
-       <widget class="QPushButton" name="btnReturn">
+       <widget class="QPushButton" name="btnBackspace">
         <property name="text">
-         <string>Return</string>
+         <string>Backspace</string>
         </property>
        </widget>
       </item>
@@ -139,6 +146,31 @@
        <widget class="QPushButton" name="btnEnter">
         <property name="text">
          <string>Enter</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="8" column="0">
+     <widget class="QLabel" name="incorrectAmountLabel">
+      <property name="text">
+       <string> </string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QPushButton" name="btnReturn">
+        <property name="text">
+         <string>Return</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnLogOut">
+        <property name="text">
+         <string>Log out</string>
         </property>
        </widget>
       </item>

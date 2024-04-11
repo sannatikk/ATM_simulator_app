@@ -1,6 +1,8 @@
 #include "customwithdrawal.h"
 #include "ui_customwithdrawal.h"
 #include <QDebug>
+#include <QString>
+#include <iostream>
 
 CustomWithdrawal::CustomWithdrawal(QWidget *parent) :
     QDialog(parent),
@@ -24,6 +26,10 @@ void CustomWithdrawal::numberClickHandler(QString n)
     ui->lineEditAmount->setText(enteredNumber);
 
     qDebug() << "Entered number in string format is now " << enteredNumber;
+
+    amount = enteredNumber.toFloat();
+
+    qDebug() << "Entered number in float format is now " << amount;
 }
 
 void CustomWithdrawal::on_btn1_clicked()
@@ -95,28 +101,43 @@ void CustomWithdrawal::on_btn0_clicked()
     numberClickHandler("0");
 }
 
-
-void CustomWithdrawal::on_btnDelete_clicked()
+void CustomWithdrawal::on_btnEnter_clicked()
 {
-    qDebug() << "Clicked Delete";
+    // tästä pitää saada lähetettyä enteredNumber amountiksi withdrawaliin
+    qDebug() << "Clicked Enter";
+    qDebug() << amount;
+    // if rakenne tähän jossa tarkistetaan onko numero jaollinen 20:llä tai 50:llä
+    int integerAmount = static_cast<int>(amount);
+    if (integerAmount % 20 == 0 || integerAmount % 50 == 0)
+    {
+        emit sendEnteredNumber(enteredNumber);
+        delete this;
+    }
+    else
+    {
+        ui->incorrectAmountLabel->setText("Incorrect amount");
+    }
+}
+
+void CustomWithdrawal::on_btnBackspace_clicked()
+{
+    qDebug() << "Clicked Backspace";
     enteredNumber.remove(enteredNumber.length()-1, 1);
     ui->lineEditAmount->setText(enteredNumber);
     qDebug() << "Entered number in string format is now " << enteredNumber;
 }
 
-
-void CustomWithdrawal::on_btnEnter_clicked()
+void CustomWithdrawal::on_btnReturn_clicked()
 {
-    // tästä pitää saada lähetettyä enteredNumber amountiksi withdrawaliin
-    qDebug() << "Clicked Enter";
-    emit sendEnteredNumber(enteredNumber);
-    this->close();
+    delete this;
 }
 
 
-void CustomWithdrawal::on_btnExit_clicked()
+void CustomWithdrawal::on_btnLogOut_clicked()
 {
-    qDebug() << "Clicked Exit";
-    // tähän koodi että palaa pääkirjautumisvalikkoon
+    delete this;
 }
+
+
+
 

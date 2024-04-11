@@ -42,10 +42,10 @@ private:
     QByteArray webToken;
     QNetworkReply *reply;
     QByteArray response_data;
-    void handleAmount(float);
     float amount;
     QNetworkAccessManager *withdrawalManager;
     Ui::Withdrawal *ui;
+    void handleAmount(float);
 };
 
 #endif // WITHDRAWAL_H
