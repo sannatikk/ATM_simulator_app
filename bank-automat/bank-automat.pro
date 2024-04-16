@@ -12,27 +12,33 @@ CONFIG += c++17
 
 SOURCES += \
     accountselect.cpp \
+    customwithdrawal.cpp \
     environment.cpp \
     keyboard.cpp \
     main.cpp \
     mainwindow.cpp \
     transactions.cpp \
-    usermenu.cpp
+    usermenu.cpp \
+    withdrawal.cpp
 
 HEADERS += \
     accountselect.h \
+    customwithdrawal.h \
     environment.h \
     keyboard.h \
     mainwindow.h \
     transactions.h \
-    usermenu.h
+    usermenu.h \
+    withdrawal.h
 
 FORMS += \
     accountselect.ui \
+    customwithdrawal.ui \
     keyboard.ui \
     mainwindow.ui \
     transactions.ui \
-    usermenu.ui
+    usermenu.ui \
+    withdrawal.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
