@@ -2,6 +2,7 @@
 #include "transactions.h"
 #include "ui_usermenu.h"
 #include "environment.h"
+#include "withdrawal.h"
 
 UserMenu::UserMenu(QWidget *parent)
     : QDialog(parent)
@@ -89,10 +90,10 @@ void UserMenu::on_btnViewBalance_clicked()
 
 void UserMenu::on_btnWithdraw_clicked()
 {
-    // Withdrawal *withdrawalPtr = new Withdrawal(this);
-    // withdrawalPtr->open();
-    // withdrawalPtr->setWebToken(webToken);
-    // withdrawalPtr->setIdAccount(idAccount);
+    Withdrawal *withdrawalPtr = new Withdrawal(this);
+    withdrawalPtr->open();
+    withdrawalPtr->setWebToken(webToken);
+    withdrawalPtr->setIdAccount(idAccount);
 }
 
 void UserMenu::on_btnLogout_clicked()
