@@ -135,11 +135,4 @@ void CustomWithdrawal::on_btnReturn_clicked()
 }
 
 
-void CustomWithdrawal::on_btnLogOut_clicked()
-{
-    delete this;
-}
-
-
-
 

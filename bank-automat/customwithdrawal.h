@@ -29,7 +29,6 @@ private slots:
     void on_btn0_clicked();
     void on_btnEnter_clicked();
     void on_btnReturn_clicked();
-    void on_btnLogOut_clicked();
     void on_btnBackspace_clicked();
 
 signals:
