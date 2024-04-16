@@ -32,6 +32,25 @@ void CustomWithdrawal::numberClickHandler(QString n)
     qDebug() << "Entered number in float format is now " << amount;
 }
 
+bool CustomWithdrawal::withdrawable(int num)
+{
+    if (num % 20 == 0 || num % 50 == 0)
+    {
+        return true;
+    }
+    for (int num20 = 0; num20 <= num / 20; num20++)
+    {
+        for (int num50 = 0; num50 <= num / 50; num50++)
+        {
+            if((num20 * 20 + num50 * 50) == num)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 void CustomWithdrawal::on_btn1_clicked()
 {
     qDebug() << "Clicked 1" ;
@@ -108,9 +127,9 @@ void CustomWithdrawal::on_btnEnter_clicked()
     qDebug() << amount;
 
     int integerAmount = static_cast<int>(amount);
-    if (integerAmount % 20 == 0 || integerAmount % 50 == 0)
+    bool billsOk = withdrawable(integerAmount);
+    if (billsOk == true)
     {
-        // float value = amount.toDouble();
         emit sendEnteredNumber(amount);
         delete this;
     }
