@@ -103,20 +103,22 @@ void CustomWithdrawal::on_btn0_clicked()
 
 void CustomWithdrawal::on_btnEnter_clicked()
 {
-    // tästä pitää saada lähetettyä enteredNumber amountiksi withdrawaliin
+    // tästä pitää saada lähetettyä enteredNumber amountiksi floattina withdrawalrequestiin
     qDebug() << "Clicked Enter";
     qDebug() << amount;
-    // if rakenne tähän jossa tarkistetaan onko numero jaollinen 20:llä tai 50:llä
+
     int integerAmount = static_cast<int>(amount);
     if (integerAmount % 20 == 0 || integerAmount % 50 == 0)
     {
-        emit sendEnteredNumber(enteredNumber);
+        // float value = amount.toDouble();
+        emit sendEnteredNumber(amount);
         delete this;
     }
     else
     {
         ui->incorrectAmountLabel->setText("Incorrect amount");
     }
+
 }
 
 void CustomWithdrawal::on_btnBackspace_clicked()

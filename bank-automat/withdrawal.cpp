@@ -8,6 +8,7 @@
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QString>
+#include <QMessageBox>
 
 Withdrawal::Withdrawal(QWidget *parent) :
     QDialog(parent),
@@ -70,9 +71,9 @@ void Withdrawal::on_btnOther_clicked()
     qDebug()<<"Other withdrawal pressed";
 
     CustomWithdrawal *customWithdrawal = new CustomWithdrawal(this);
-
+    connect(customWithdrawal, SIGNAL(sendEnteredNumber(float)),
+            this, SLOT(handleAmount(float)));
     customWithdrawal->show();
-    // tässä aukeaa uusi käyttöliittymä TARKISTA ETTÄ MÄTSÄÄ
 }
 
 
@@ -82,18 +83,11 @@ void Withdrawal::on_btnReturn_clicked()
     delete this;
 }
 
-
-void Withdrawal::on_btnLogOut_clicked()
-{
-    qDebug()<<"Log out pressed";
-    delete this;
-}
-
 void Withdrawal::withdrawalSlot(QNetworkReply *reply)
 {
     response_data=reply->readAll();
 
-    qDebug()<<"Response data, 1=ok" +response_data;
+    qDebug()<<"Response data, 1=ok: " +response_data;
 
     QString jsonString(response_data);
     QJsonDocument jsonResponse = QJsonDocument::fromJson(jsonString.toUtf8());
@@ -102,10 +96,18 @@ void Withdrawal::withdrawalSlot(QNetworkReply *reply)
     if (responseDataInteger == 0)
     {
         ui->responseLabel->setText("Withdrawal failed!");
+        QMessageBox msgBox;
+        msgBox.setText("Withdrawal failed, insufficient funds!");
+        msgBox.exec();
+        this->close();
     }
     else if (responseDataInteger == 1)
     {
         ui->responseLabel->setText("Withdrawal successful!");
+        QMessageBox msgBox;
+        msgBox.setText("Withdrawal successful!");
+        msgBox.exec();
+        this->close();
     }
     else
     {
@@ -133,13 +135,14 @@ void Withdrawal::handleAmount(float a)
     jsonObj.insert("id_account",idAccount);
     jsonObj.insert("amount",a);
 
-    QString site_url=Environment::getBaseUrl()+"/withdraw/";
+    QString site_url=Environment::getBaseUrl()+"/withdraw";
+    qDebug() << site_url;
     QNetworkRequest request((site_url));
 
     QByteArray myToken="Bearer "+webToken;
     request.setRawHeader(QByteArray("Authorization"),(myToken));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     reply = withdrawalManager->post(request, QJsonDocument(jsonObj).toJson());
-
 
 }
 

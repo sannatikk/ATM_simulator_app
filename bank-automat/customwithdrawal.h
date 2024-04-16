@@ -33,7 +33,7 @@ private slots:
     void on_btnBackspace_clicked();
 
 signals:
-    void sendEnteredNumber(QString);
+    void sendEnteredNumber(float);
 
 private:
     QString enteredNumber;
