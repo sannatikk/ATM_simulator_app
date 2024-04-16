@@ -39,6 +39,7 @@ private:
     void numberClickHandler(QString);
     Ui::CustomWithdrawal *ui;
     float amount;
+    bool withdrawable(int);
 };
 
 #endif // CUSTOMWITHDRAWAL_H
