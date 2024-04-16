@@ -100,7 +100,6 @@ void PinUI::on_btn0_clicked()
 
 void PinUI::on_btnBackspace_clicked()
 {
-    qDebug() << "Clicked backspace";
     enteredNumber.remove(enteredNumber.length()-1, 1);
     stars.remove(stars.length()-1, 1);
     ui->lineEdit->setText(stars);
@@ -110,7 +109,10 @@ void PinUI::on_btnBackspace_clicked()
 void PinUI::on_btnQuit_clicked()
 {
     qDebug() << "Clicked Quit";
-    this->close();
-    // tähän jokin signaali, että kun klikataan niin jokin mainwindow:n reset-funktio tapahtuu ja kaikki nollaantuu alkutilaan?
+    connect(this, SIGNAL(sendLogoutSignal()),
+            this->parent(), SLOT(handleLogoutSlot()));
+
+    emit sendLogoutSignal();
+    delete this;
 }
 

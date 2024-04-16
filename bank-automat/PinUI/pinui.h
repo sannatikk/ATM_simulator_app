@@ -17,6 +17,7 @@ public:
 
 signals:
     void pincodeSignal(QString);
+    void sendLogoutSignal();
 
 private slots:
     void setLoginResponseSlot(QString);

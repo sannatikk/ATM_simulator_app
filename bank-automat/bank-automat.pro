@@ -62,3 +62,6 @@ else:unix: LIBS += -L$$PWD/LoginHandler/build/ -lLoginHandler
 
 INCLUDEPATH += $$PWD/LoginHandler
 DEPENDPATH += $$PWD/LoginHandler
+
+DISTFILES += \
+    styles/myStyle.qss

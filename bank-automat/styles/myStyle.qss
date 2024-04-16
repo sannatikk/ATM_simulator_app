@@ -1,0 +1,37 @@
+QWidget {
+    background-color: #2d6e7e;
+    border: 2px;
+}
+
+QLabel {
+    border-style: outset;
+    border-width: 2px;
+    border-color: black;
+    min-height: 50px;
+    min-width: 200px;
+    font: bold 20px;
+}
+
+QPushButton {
+    background-color: orange;
+    border-style: outset;
+    border-width: 2px;
+    border-color: black;
+    min-height: 50px;
+    min-width: 170px;
+    border-radius: 6px;
+    font-size:20px;
+}
+
+QLineEdit {
+    border-style: outset;
+    border-width: 2px;
+    border-color: black;
+    font: bold 20px;
+}
+
+QTableView {
+    font: bold 12px;
+    gridline-color: black;
+    border: 2px;
+}
