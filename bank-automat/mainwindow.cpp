@@ -32,8 +32,8 @@ MainWindow::MainWindow(QWidget *parent)
     // these 2 lines are for bypassing rfid reader in case you don't have it for testing, change test_id value to the id_card you want
     //QString test_id = "0B00320D2B"; // debit only card
     //QString test_id = "0600062E1F"; // credit only card
-    QString test_id = "06000D5C69"; // combination card
-    setSerialID(test_id);
+    //QString test_id = "06000D5C69"; // combination card
+    //setSerialID(test_id);
 }
 
 MainWindow::~MainWindow()
@@ -48,7 +48,7 @@ void MainWindow::setSerialID(QString data)
     serialID = data;
 
     PinUI_dll = new PinUI(this);
-    PinUI_dll->show();
+    PinUI_dll->open();
 
     connect(PinUI_dll, SIGNAL(pincodeSignal(QString)),
             this, SLOT(setPincode(QString)));
@@ -109,7 +109,7 @@ void MainWindow::checkAccountsSlot(QNetworkReply *reply)
 {
     response_data=reply->readAll();
 
-    qDebug() << "Data received: " << response_data;
+    qDebug() << "Account data received: " << response_data;
 
     QJsonDocument json_doc = QJsonDocument::fromJson(response_data);
     QJsonArray jsonArray = json_doc.array();

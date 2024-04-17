@@ -36,7 +36,7 @@ void UserMenu::transactionSlot(QNetworkReply *reply)
             transactionsPtr, SLOT(setTransactionData(QByteArray)));
 
     transactionsPtr->setIdAccount(idAccount);
-    transactionsPtr->show();
+    transactionsPtr->open();
 
     emit transactionDataSignal(transactionResponseData);
 

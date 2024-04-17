@@ -73,7 +73,7 @@ void Withdrawal::on_btnOther_clicked()
     CustomWithdrawal *customWithdrawal = new CustomWithdrawal(this);
     connect(customWithdrawal, SIGNAL(sendEnteredNumber(float)),
             this, SLOT(handleAmount(float)));
-    customWithdrawal->show();
+    customWithdrawal->open();
 }
 
 
@@ -90,7 +90,6 @@ void Withdrawal::withdrawalSlot(QNetworkReply *reply)
     qDebug()<<"Response data, 1=ok: " +response_data;
 
     QString jsonString(response_data);
-    QJsonDocument jsonResponse = QJsonDocument::fromJson(jsonString.toUtf8());
     int responseDataInteger = jsonString.toInt();
 
     if (responseDataInteger == 0)
@@ -143,6 +142,5 @@ void Withdrawal::handleAmount(float a)
     request.setRawHeader(QByteArray("Authorization"),(myToken));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     reply = withdrawalManager->post(request, QJsonDocument(jsonObj).toJson());
-
 }
 

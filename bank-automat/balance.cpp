@@ -64,7 +64,7 @@ void Balance::onNetworkReply(QNetworkReply *reply) {
     if (creditlimit > 0) {
         ui->limitAmountLabel->setText(QString::number(creditlimit, 'f', 2) + "€");
     } else {
-        ui->limitAmountLabel->setText("Ei luottorajaa"); //jätetäänkö vai vaan 0?
+        ui->limitAmountLabel->setText("No credit limit"); //jätetäänkö vai vaan 0?
     }
 
     float availableForWithdraw = balance + creditlimit;
@@ -78,7 +78,7 @@ int Balance::calculateWithdrawableAmount(float amount) {
     int num = amount;
 
     while (true) {
-        if (num % 20 == 0 || num % 50 == 0) {
+        if (num % 20 == 0 || num % 50 == 0) {
             break;
         }
         bool found = false;
