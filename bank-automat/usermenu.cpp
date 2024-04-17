@@ -36,7 +36,7 @@ void UserMenu::transactionSlot(QNetworkReply *reply)
             transactionsPtr, SLOT(setTransactionData(QByteArray)));
 
     transactionsPtr->setIdAccount(idAccount);
-    transactionsPtr->show();
+    transactionsPtr->open();
 
     emit transactionDataSignal(transactionResponseData);
 
@@ -99,8 +99,6 @@ void UserMenu::on_btnWithdraw_clicked()
 
 void UserMenu::on_btnLogout_clicked()
 {
-    //close();
-    // tähän jokin signaali, jolla pääsee jonkinlaiseen "reset"-funktioon?
     emit logoutSignal();
     delete this;
 }

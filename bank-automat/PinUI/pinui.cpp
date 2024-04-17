@@ -9,6 +9,8 @@ PinUI::PinUI(QWidget *parent) :
 
     connect(ui->loginButton, SIGNAL(clicked(bool)),
             this, SLOT(handleButtonClick()));
+    connect(this->parent(), SIGNAL(loginResponseTextSignal(QString)),
+            this, SLOT(setLoginResponseSlot(QString)));
 }
 
 PinUI::~PinUI()
@@ -16,10 +18,17 @@ PinUI::~PinUI()
     delete ui;
 }
 
+void PinUI::setLoginResponseSlot(QString msg)
+{
+    //Set response text from login
+    qDebug() << "Login response text :" << msg;
+    ui->infoLabel->setText(msg);
+}
+
 void PinUI::handleButtonClick()
 {
     qDebug() << "Login button pressed";
-    ui->loginButton->setText("Logging in...");
+    ui->infoLabel->setText("Logging in...");
 
     emit pincodeSignal(enteredNumber);
 }
@@ -91,7 +100,6 @@ void PinUI::on_btn0_clicked()
 
 void PinUI::on_btnBackspace_clicked()
 {
-    qDebug() << "Clicked backspace";
     enteredNumber.remove(enteredNumber.length()-1, 1);
     stars.remove(stars.length()-1, 1);
     ui->lineEdit->setText(stars);
@@ -101,7 +109,10 @@ void PinUI::on_btnBackspace_clicked()
 void PinUI::on_btnQuit_clicked()
 {
     qDebug() << "Clicked Quit";
-    this->close();
-    // tähän jokin signaali, että kun klikataan niin jokin mainwindow:n reset-funktio tapahtuu ja kaikki nollaantuu alkutilaan?
+    connect(this, SIGNAL(sendLogoutSignal()),
+            this->parent(), SLOT(handleLogoutSlot()));
+
+    emit sendLogoutSignal();
+    delete this;
 }
 

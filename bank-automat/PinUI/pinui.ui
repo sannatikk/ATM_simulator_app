@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>CashMate</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_3">
    <item>
@@ -19,7 +19,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="infoLabel">
          <property name="text">
           <string>Enter PIN:</string>
          </property>

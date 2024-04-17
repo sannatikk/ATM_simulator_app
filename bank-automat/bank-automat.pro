@@ -15,7 +15,6 @@ SOURCES += \
     balance.cpp \
     customwithdrawal.cpp \
     environment.cpp \
-    keyboard.cpp \
     main.cpp \
     mainwindow.cpp \
     transactions.cpp \
@@ -27,7 +26,6 @@ HEADERS += \
     balance.h \
     customwithdrawal.h \
     environment.h \
-    keyboard.h \
     mainwindow.h \
     transactions.h \
     usermenu.h \
@@ -37,7 +35,6 @@ FORMS += \
     accountselect.ui \
     balance.ui \
     customwithdrawal.ui \
-    keyboard.ui \
     mainwindow.ui \
     transactions.ui \
     usermenu.ui \
@@ -71,3 +68,6 @@ else:unix: LIBS += -L$$PWD/LoginHandler/build/ -lLoginHandler
 
 INCLUDEPATH += $$PWD/LoginHandler
 DEPENDPATH += $$PWD/LoginHandler
+
+DISTFILES += \
+    styles/myStyle.qss

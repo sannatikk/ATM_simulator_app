@@ -70,7 +70,6 @@ void AccountSelect::setAccountsSlot(QNetworkReply *reply)
     QString accountID = jsonObj["id_account"].toString();
     QString limit = jsonObj.value("credit_limit").toString();
 
-    qDebug() << "Account ID in setAccountsSlot: " << accountID;
     //Handle account set by credit limit
     if (!jsonObj.isEmpty()) {
         if (limit != "0.00") {
@@ -104,7 +103,7 @@ void AccountSelect::on_btnDebit_clicked()
     // usermenu->
     qDebug() << "Account ID: " << debitAccount;
     UserMenu *userMenuPtr = new UserMenu(this);
-    userMenuPtr->show();
+    userMenuPtr->open();
     userMenuPtr->setWebToken(webToken);
     userMenuPtr->setIdAccount(debitAccount);
 }
@@ -115,7 +114,7 @@ void AccountSelect::on_btnCredit_clicked()
     // usermenu->
     qDebug() << "Account ID: " << creditAccount;
     UserMenu *userMenuPtr = new UserMenu(this);
-    userMenuPtr->show();
+    userMenuPtr->open();
     userMenuPtr->setWebToken(webToken);
     userMenuPtr->setIdAccount(creditAccount);
 }

@@ -2,7 +2,6 @@
 #include "ui_customwithdrawal.h"
 #include <QDebug>
 #include <QString>
-#include <iostream>
 
 CustomWithdrawal::CustomWithdrawal(QWidget *parent) :
     QDialog(parent),
@@ -16,20 +15,14 @@ CustomWithdrawal::~CustomWithdrawal()
     delete ui;
 }
 
-// Alla oleva on kopsattu Sannan keyboard.cppstä
-
 void CustomWithdrawal::numberClickHandler(QString n)
 {
-    qDebug() << "Handling button press " << n;
-
     enteredNumber += n;
     ui->lineEditAmount->setText(enteredNumber);
 
-    qDebug() << "Entered number in string format is now " << enteredNumber;
-
     amount = enteredNumber.toFloat();
 
-    qDebug() << "Entered number in float format is now " << amount;
+    qDebug() << "Entered number is now " << amount;
 }
 
 bool CustomWithdrawal::withdrawable(int num)
@@ -122,22 +115,26 @@ void CustomWithdrawal::on_btn0_clicked()
 
 void CustomWithdrawal::on_btnEnter_clicked()
 {
-    // tästä pitää saada lähetettyä enteredNumber amountiksi floattina withdrawalrequestiin
     qDebug() << "Clicked Enter";
     qDebug() << amount;
 
     int integerAmount = static_cast<int>(amount);
-    bool billsOk = withdrawable(integerAmount);
-    if (billsOk == true)
-    {
-        emit sendEnteredNumber(amount);
-        delete this;
+    if (integerAmount >= 20) {
+        bool billsOk = withdrawable(integerAmount);
+        if (billsOk == true)
+        {
+            emit sendEnteredNumber(amount);
+            delete this;
+        }
+        else
+        {
+            ui->incorrectAmountLabel->setText("Incorrect amount");
+        }
     }
     else
     {
-        ui->incorrectAmountLabel->setText("Incorrect amount");
+        ui->incorrectAmountLabel->setText("Minimum withdrawable amount is 20€");
     }
-
 }
 
 void CustomWithdrawal::on_btnBackspace_clicked()
