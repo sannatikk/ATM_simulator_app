@@ -3,6 +3,7 @@
 #include "ui_usermenu.h"
 #include "environment.h"
 #include "withdrawal.h"
+#include "balance.h"
 
 UserMenu::UserMenu(QWidget *parent)
     : QDialog(parent)
@@ -66,6 +67,12 @@ void UserMenu::balanceSlot(QNetworkReply *reply)
     qDebug() << "JSON Response:" << jsonResponse;
     qDebug() << "Balance: " << balance;
 
+    Balance *balancePtr = new Balance(this);
+    balancePtr->setBalance(balance);
+    balancePtr->setIdAccount(idAccount);
+    balancePtr->setWebToken(webToken);
+    balancePtr->open();
+
     reply->deleteLater();
 }
 
@@ -80,12 +87,6 @@ void UserMenu::on_btnViewBalance_clicked()
 
     // Send the request
     balanceManager->get(request);
-
-    // Balance *balancePtr = new Balance(this);
-    // balancePtr->open();
-    // balancePtr->setAmount(balance);
-    // balancePtr->setWebToken(webToken);
-    // balancePtr->setIdAccount(idAccount)
 }
 
 void UserMenu::on_btnWithdraw_clicked()

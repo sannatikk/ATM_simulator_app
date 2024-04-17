@@ -12,6 +12,7 @@ CONFIG += c++17
 
 SOURCES += \
     accountselect.cpp \
+    balance.cpp \
     customwithdrawal.cpp \
     environment.cpp \
     keyboard.cpp \
@@ -23,6 +24,7 @@ SOURCES += \
 
 HEADERS += \
     accountselect.h \
+    balance.h \
     customwithdrawal.h \
     environment.h \
     keyboard.h \
@@ -33,6 +35,7 @@ HEADERS += \
 
 FORMS += \
     accountselect.ui \
+    balance.ui \
     customwithdrawal.ui \
     keyboard.ui \
     mainwindow.ui \
