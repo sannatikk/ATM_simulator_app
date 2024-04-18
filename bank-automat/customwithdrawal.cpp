@@ -21,8 +21,6 @@ void CustomWithdrawal::numberClickHandler(QString n)
     ui->lineEditAmount->setText(enteredNumber);
 
     amount = enteredNumber.toFloat();
-
-    qDebug() << "Entered number is now " << amount;
 }
 
 bool CustomWithdrawal::withdrawable(int num)
@@ -118,20 +116,22 @@ void CustomWithdrawal::on_btnEnter_clicked()
         else
         {
             ui->incorrectAmountLabel->setText("Invalid amount");
+            enteredNumber = "";
+            ui->lineEditAmount->setText(enteredNumber);
         }
     }
     else
     {
         ui->incorrectAmountLabel->setText("Minimum withdrawable amount is 20€");
+        enteredNumber = "";
+        ui->lineEditAmount->setText(enteredNumber);
     }
 }
 
 void CustomWithdrawal::on_btnBackspace_clicked()
 {
-    qDebug() << "Clicked Backspace";
     enteredNumber.remove(enteredNumber.length()-1, 1);
     ui->lineEditAmount->setText(enteredNumber);
-    qDebug() << "Entered number is now " << enteredNumber;
 }
 
 void CustomWithdrawal::on_btnReturn_clicked()
