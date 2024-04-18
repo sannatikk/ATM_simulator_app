@@ -14,7 +14,6 @@ var userRouter = require('./routes/user');
 var balanceRouter = require('./routes/balance');
 var creditlimitRouter = require('./routes/creditlimit');
 var withdrawRouter = require('./routes/withdraw');
-var adminRouter = require('./routes/admin');
 var accountsInCardRouter = require('./routes/accountsincard');
 var accountTransactionsRouter = require('./routes/accounttransactions');
 
@@ -45,7 +44,6 @@ app.use('/user', userRouter);
 app.use('/balance', balanceRouter);
 app.use('/creditlimit', creditlimitRouter);
 app.use('/withdraw', withdrawRouter);
-app.use('/admin', adminRouter);
 app.use('/accountsincard', accountsInCardRouter);
 app.use('/accounttransactions', accountTransactionsRouter);
 

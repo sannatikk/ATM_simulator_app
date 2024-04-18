@@ -34,10 +34,6 @@ const bankaccount = {
 
     withdrawMoney(account, callback){
         return db.query("CALL bank_transaction(?, 'withdrawal', ?)", [account.id_account, account.amount], callback);
-    },
-
-    getAdminInfo (callback) {
-        return db.query("SELECT CONCAT(user.lname, ', ', user.fname) AS 'User', card.id_card AS 'Card ID', card.is_locked AS 'Card status (1 = locked)', GROUP_CONCAT(bank_account.id_account ORDER BY bank_account.id_account SEPARATOR ', ') AS 'Associated bank account/accounts' FROM card RIGHT JOIN card_account ON card.id_card = card_account.id_card RIGHT JOIN bank_account ON card_account.id_account = bank_account.id_account LEFT JOIN user_account ON bank_account.id_account = user_account.id_account RIGHT JOIN user ON user_account.id_user = user.id_user GROUP BY user.lname, user.id_user, card.id_card ORDER BY card.id_card DESC", callback);
     }
 }
 
