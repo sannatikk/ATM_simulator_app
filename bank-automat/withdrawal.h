@@ -20,15 +20,8 @@ class Withdrawal : public QDialog
 public:
     explicit Withdrawal(QWidget *parent = nullptr);
     ~Withdrawal();
-
     void setIdAccount(const QString &newIdAccount);
-
-
     void setWebToken(const QByteArray &newWebToken);
-
-//signals:
-    //void handleAmount(float amount);
-    //tähän tulee withdrawal.cppstä handleamountista signaali, jossa on parametrinä float amount
 
 private slots:
     void on_btn20_clicked();
@@ -40,16 +33,16 @@ private slots:
     void on_btnReturn_clicked();
     void withdrawalSlot(QNetworkReply *reply);
     void handleAmount(float);
+
 private:
     QString idAccount;
     QByteArray webToken;
     QNetworkReply *reply;
     QNetworkReply *withdrawalAmount;
     QByteArray response_data;
-    float amount;
-
     QNetworkAccessManager *withdrawalManager;
     Ui::Withdrawal *ui;
+    float amount;
 };
 
 #endif // WITHDRAWAL_H

@@ -33,21 +33,15 @@ signals:
 private slots:
     void handleCardTypeRequest();
     void setAccountsSlot(QNetworkReply *reply);
-
     void on_btnDebit_clicked();
     void on_btnCredit_clicked();
-
-
     void on_btnLogout_clicked();
 
 private:
     Ui::AccountSelect *ui;
-
     QNetworkAccessManager *accountManager;
     QNetworkReply *reply;
     QByteArray response_data;
-
-
     QByteArray webToken;
     QJsonArray accountIDs;
     QString debitAccount;

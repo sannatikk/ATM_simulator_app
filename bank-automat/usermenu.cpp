@@ -28,7 +28,7 @@ UserMenu::~UserMenu()
 void UserMenu::transactionSlot(QNetworkReply *reply)
 {
     transactionResponseData = reply->readAll();
-    qDebug() << "Response Data:" << transactionResponseData;
+    qDebug() << "Received response data:" << transactionResponseData;
 
     Transactions *transactionsPtr = new Transactions(this);
 

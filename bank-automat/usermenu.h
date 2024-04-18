@@ -1,7 +1,6 @@
 #ifndef USERMENU_H
 #define USERMENU_H
 
-
 #include <QDialog>
 #include <QtNetwork>
 #include <QNetworkAccessManager>
@@ -21,7 +20,6 @@ class UserMenu : public QDialog
 public:
     explicit UserMenu(QWidget *parent = nullptr);
     ~UserMenu();
-
     void setWebToken(const QByteArray &newWebToken);
     void setIdAccount(const QString &newIdaccount);
 
@@ -43,8 +41,8 @@ private:
     QString idAccount;
     QNetworkAccessManager *balanceManager;
     QNetworkAccessManager *transactionManager;
-    double balance;
     QByteArray transactionResponseData;
+    double balance;
 };
 
 #endif // USERMENU_H

@@ -24,7 +24,6 @@ void Balance::setBalance(float newBalance) {
 }
 
 void Balance::fetchAccountDetails() {
-    qDebug() << "Trying to make request for Balance for user: " << idAccount;
     QString site_url = Environment::getBaseUrl() + "/creditlimit/"+idAccount;
     QNetworkRequest request(site_url);
     QByteArray myToken = "Bearer " + webToken;
@@ -45,10 +44,9 @@ void Balance::setWebToken(const QByteArray &newWebToken)
 }
 
 void Balance::onNetworkReply(QNetworkReply *reply) {
-    qDebug() << "Reply in onNetWorkReply";
 
     if (reply->error() != QNetworkReply::NoError) {
-        qDebug() << "Request error:" << reply->errorString();
+        qDebug() << "Network request error:" << reply->errorString();
         reply->deleteLater();
         return;
     }
@@ -60,11 +58,11 @@ void Balance::onNetworkReply(QNetworkReply *reply) {
     qDebug() << jsonResponse;
     float creditlimit = jsonResponse.toFloat();
 
-    // onko creditLimit suurempi kuin 0
+    // handle credit limit view
     if (creditlimit > 0) {
         ui->limitAmountLabel->setText(QString::number(creditlimit, 'f', 2) + "€");
     } else {
-        ui->limitAmountLabel->setText("No credit limit"); //jätetäänkö vai vaan 0?
+        ui->limitAmountLabel->setText("--");
     }
 
     float availableForWithdraw = balance + creditlimit;
@@ -98,10 +96,7 @@ int Balance::calculateWithdrawableAmount(float amount) {
     return num;
 }
 
-
-
-
 void Balance::on_btnBack_clicked() {
-    close();
+    delete this;
 }
 

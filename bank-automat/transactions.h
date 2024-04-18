@@ -20,7 +20,6 @@ public:
 
 private slots:
     void setTransactionData(const QByteArray &newTransactionData);
-
     void on_btnReturn_clicked();
     void on_btnPrevious5_clicked();
     void on_btnNext5_clicked();
@@ -29,11 +28,10 @@ private:
     Ui::Transactions *ui;
     QString idAccount;
     QByteArray transactionData;
-    int startIndex = 0;
     QStandardItemModel *model;
-    void showInModel();
     QJsonArray formattedArray;
-
+    int startIndex = 0;
+    void showInModel();
 };
 
 #endif // TRANSACTIONS_H

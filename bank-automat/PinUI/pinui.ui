@@ -163,7 +163,7 @@
        <item>
         <widget class="QPushButton" name="btnBackspace">
          <property name="text">
-          <string>Esc</string>
+          <string>Backspace</string>
          </property>
          <property name="autoDefault">
           <bool>false</bool>

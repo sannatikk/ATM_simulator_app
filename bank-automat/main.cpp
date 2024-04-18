@@ -9,15 +9,25 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QDir dir("../styles");
+
+#ifdef Q_OS_WIN
+    // Windows path handling
+    QDir dir("..\\styles");
     QString stylesFolder = dir.absolutePath();
+    QString cssFilePath = stylesFolder + "\\myStyle.qss";
+#elif defined(Q_OS_MACOS)
+    // macOS path handling
+    QString stylesFolder;
+    stylesFolder = QCoreApplication::applicationDirPath() + "/../../../../styles";
     QString cssFilePath = stylesFolder + "/myStyle.qss";
+
+#endif
 
     QFile file(cssFilePath);
 
     if (!file.open(QFile::ReadOnly)) {
-        // Tiedoston avaaminen epäonnistui
-        qDebug()<<"Tyylitiedoston avaus epäonnistui";
+        // If unable to open file
+        qDebug()<<"Cannot open stylesheet file: " << file.errorString();
             return -1;
     }
 
