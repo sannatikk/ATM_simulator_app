@@ -4,7 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const jwt = require('jsonwebtoken');
 
-var indexRouter = require('./routes/index');
+//var indexRouter = require('./routes/index');
 var cardRouter = require('./routes/card');
 var bankaccountRouter = require('./routes/bankaccount');
 var cardAccountRouter = require('./routes/cardaccount');
@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Unsecured routes
 
-app.use('/', indexRouter);
+//app.use('/', indexRouter);
 app.use('/login', loginRouter);
 
 app.use(authenticateToken);
