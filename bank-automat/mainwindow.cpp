@@ -31,8 +31,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     // these 2 lines are for bypassing rfid reader in case you don't have it for testing, change test_id value to the id_card you want
     //QString test_id = "0B00320D2B"; // debit only card
-    //QString test_id = "0600062E1F"; // credit only card
-    QString test_id = "06000D5C69"; // combination card
+    QString test_id = "0600062E1F"; // credit only card
+    //QString test_id = "06000D5C69"; // combination card
     setSerialID(test_id);
 }
 

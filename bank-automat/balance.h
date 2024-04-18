@@ -15,18 +15,17 @@ class Balance : public QDialog {
 public:
     explicit Balance(QWidget *parent = nullptr);
     ~Balance();
-
     void setBalance(float newBalance);
     int calculateWithdrawableAmount(float amount);
     void setWebToken(const QByteArray &newWebToken);
-
     void setIdAccount(const QString &newIdAccount);
 
 signals:
     void getBalanceSignal();
+
 private slots:
     void on_btnBack_clicked();
-    void onNetworkReply(QNetworkReply *reply); // Korjattu nimi tässä
+    void onNetworkReply(QNetworkReply *reply);
     void fetchAccountDetails();
 
 private:

@@ -11,8 +11,6 @@
 #include <QNetworkAccessManager>
 #include <QJsonDocument>
 
-
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -24,7 +22,6 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
     void setWebToken(const QByteArray &newWebToken);
 
 signals:
@@ -45,12 +42,10 @@ private:
     RFIDReader *RFID_dll;
     PinUI *PinUI_dll;
     LoginHandler *LoginHandler_dll;
-
     QNetworkAccessManager *checkAccountsManager;
     QNetworkReply *reply;
     QByteArray response_data;
     QByteArray webToken;
-
     QString serialID;
     QString pincode;
 };

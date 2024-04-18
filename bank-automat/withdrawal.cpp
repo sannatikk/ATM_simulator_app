@@ -135,7 +135,6 @@ void Withdrawal::handleAmount(float a)
     jsonObj.insert("amount",a);
 
     QString site_url=Environment::getBaseUrl()+"/withdraw";
-    qDebug() << site_url;
     QNetworkRequest request((site_url));
 
     QByteArray myToken="Bearer "+webToken;

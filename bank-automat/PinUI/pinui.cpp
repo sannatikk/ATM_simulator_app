@@ -29,8 +29,12 @@ void PinUI::handleButtonClick()
 {
     qDebug() << "Login button pressed";
     ui->infoLabel->setText("Logging in...");
+    stars.clear();
+    ui->lineEdit->setText(stars);
 
     emit pincodeSignal(enteredNumber);
+    enteredNumber.clear();
+
 }
 
 void PinUI::handleNumberClick(QString n)
