@@ -46,77 +46,66 @@ bool CustomWithdrawal::withdrawable(int num)
 
 void CustomWithdrawal::on_btn1_clicked()
 {
-    qDebug() << "Clicked 1" ;
     numberClickHandler("1");
 }
 
 
 void CustomWithdrawal::on_btn2_clicked()
 {
-    qDebug() << "Clicked 2" ;
     numberClickHandler("2");
 }
 
 
 void CustomWithdrawal::on_btn3_clicked()
 {
-    qDebug() << "Clicked 3";
     numberClickHandler("3");
 }
 
 
 void CustomWithdrawal::on_btn4_clicked()
 {
-    qDebug() << "Clicked 4";
     numberClickHandler("4");
 }
 
 
 void CustomWithdrawal::on_btn5_clicked()
 {
-    qDebug() << "Clicked 5";
     numberClickHandler("5");
 }
 
 
 void CustomWithdrawal::on_btn6_clicked()
 {
-    qDebug() << "Clicked 6";
     numberClickHandler("6");
 }
 
 
 void CustomWithdrawal::on_btn7_clicked()
 {
-    qDebug() << "Clicked 7";
     numberClickHandler("7");
 }
 
 
 void CustomWithdrawal::on_btn8_clicked()
 {
-    qDebug() << "Clicked 8" ;
     numberClickHandler("8");
 }
 
 
 void CustomWithdrawal::on_btn9_clicked()
 {
-    qDebug() << "Clicked 9";
     numberClickHandler("9");
 }
 
 
 void CustomWithdrawal::on_btn0_clicked()
 {
-    qDebug() << "Clicked 0" ;
     numberClickHandler("0");
 }
 
 void CustomWithdrawal::on_btnEnter_clicked()
 {
-    qDebug() << "Clicked Enter";
-    qDebug() << amount;
+    qDebug() << "Clicked Enter, amount = " << amount;
 
     int integerAmount = static_cast<int>(amount);
     if (integerAmount >= 20) {
@@ -128,7 +117,7 @@ void CustomWithdrawal::on_btnEnter_clicked()
         }
         else
         {
-            ui->incorrectAmountLabel->setText("Incorrect amount");
+            ui->incorrectAmountLabel->setText("Invalid amount");
         }
     }
     else
@@ -142,7 +131,7 @@ void CustomWithdrawal::on_btnBackspace_clicked()
     qDebug() << "Clicked Backspace";
     enteredNumber.remove(enteredNumber.length()-1, 1);
     ui->lineEditAmount->setText(enteredNumber);
-    qDebug() << "Entered number in string format is now " << enteredNumber;
+    qDebug() << "Entered number is now " << enteredNumber;
 }
 
 void CustomWithdrawal::on_btnReturn_clicked()

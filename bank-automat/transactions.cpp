@@ -33,36 +33,28 @@ void Transactions::on_btnPrevious5_clicked()
     int length = formattedArray.size();
 
     // make sure you can't click into blank screens
-
     if (startIndex < length-5) {
-
         startIndex += 5;
         qDebug() << "Start index: " << startIndex;
-
         if (startIndex > -1) {
             model->clear();
             showInModel();
         }
     }
-
 }
 
 void Transactions::on_btnNext5_clicked()
 {
 
     // make sure you can't click into negative indices
-
     if (startIndex > 0) {
-
         startIndex -= 5;
         qDebug() << "Start index: " << startIndex;
-
         if (startIndex > -1) {
             model->clear();
             showInModel();
+        }
     }
-    }
-
 }
 
 void Transactions::showInModel()
@@ -109,14 +101,14 @@ void Transactions::setIdAccount(const QString &newIdAccount)
 void Transactions::setTransactionData(const QByteArray &newTransactionData)
 {
     transactionData = newTransactionData;
-    qDebug() << "Transaction data: " << transactionData;
+    qDebug() << "Received ransaction data: " << transactionData;
 
     // parse into json document
     QJsonDocument jsonDoc = QJsonDocument::fromJson(transactionData);
     // extract array
     QJsonArray jsonArray = jsonDoc.array();
 
-    // loop through array to fix weird timestamp
+    // loop through array to modify timestamp into desired format
     for (QJsonValueRef value : jsonArray) {
         if (value.isObject()) {
             QJsonObject obj = value.toObject();
@@ -137,6 +129,5 @@ void Transactions::setTransactionData(const QByteArray &newTransactionData)
     formattedArray = reversedArray;
 
     showInModel();
-
 }
 

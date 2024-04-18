@@ -23,21 +23,11 @@ int main(int argc, char *argv[])
 
 #endif
 
-// #ifdef Q_OS_WIN
-//         // Windows path handling
-//     stylesFolder = QCoreApplication::applicationDirPath() + "/styles";
-// #elif defined(Q_OS_MACOS)
-//         // macOS path handling
-//     stylesFolder = QCoreApplication::applicationDirPath() + "/../../../../styles";
-// #endif
-
-
     QFile file(cssFilePath);
 
     if (!file.open(QFile::ReadOnly)) {
-        // Tiedoston avaaminen epäonnistui
-        qDebug()<<"Tyylitiedoston avaus epäonnistui: " << file.errorString();
-        //qDebug() << "Current folder: " << QDir::currentPath();
+        // If unable to open file
+        qDebug()<<"Cannot open stylesheet file: " << file.errorString();
             return -1;
     }
 

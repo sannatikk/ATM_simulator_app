@@ -64,20 +64,20 @@ void MainWindow::setPincode(QString data)
 
 void MainWindow::handleLoginResponse(QByteArray response)
 {
-    //Note for below: error -61 is mac equivalent of widows error -4078
+    //Note for below: error -61 is macos equivalent of widows error -4078
     if (response == "-61" || response == "-4078" || response.length()==0){
 
         qDebug() << "Database connection problem";
 
-        QString msg = "Connection problem";
+        QString msg = "Problem with connection";
         emit loginResponseTextSignal(msg);
     }
     else{
         //If login success, token is returned
         if(response!="false"){
-            qDebug() << "Login success";
+            qDebug() << "Login successful";
             qDebug() << response;
-            QString msg = "Login Success";
+            QString msg = "Login Successful";
             emit loginResponseTextSignal(msg);
 
             delete PinUI_dll;
@@ -99,7 +99,7 @@ void MainWindow::handleLoginResponse(QByteArray response)
             qDebug() << "Card ID or Pincode doesn't match";
             qDebug() << response;
 
-            QString msg = "Incorrect Attempt, Enter Pin Code";
+            QString msg = "Incorrect, Enter Pin Code";
             emit loginResponseTextSignal(msg);
         }
     }
@@ -121,7 +121,6 @@ void MainWindow::checkAccountsSlot(QNetworkReply *reply)
     If 2 accounts -> AccountSelect*/
     qDebug() << "Number of accounts in card: " << objectCount;
     if(objectCount > 1) {
-        //accountSelect->
         AccountSelect *accountSelectPtr = new AccountSelect(this);
         accountSelectPtr->setWebToken(webToken);
         accountSelectPtr->setAccountIDs(jsonArray);
@@ -142,7 +141,6 @@ void MainWindow::checkAccountsSlot(QNetworkReply *reply)
         QString accountID = jsonObj["id_account"].toString();
         qDebug() << "Account number in QString: " << accountID;
 
-        // usermenu->
         UserMenu *userMenuPtr = new UserMenu(this);
         userMenuPtr->open();
         userMenuPtr->setWebToken(webToken);

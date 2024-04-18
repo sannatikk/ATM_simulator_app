@@ -28,7 +28,7 @@ Withdrawal::~Withdrawal()
 
 void Withdrawal::on_btn20_clicked()
 {
-    qDebug()<<"20€ withdrawal pressed";
+    qDebug()<<"20€ withdrawal clicked";
     amount = 20;
     handleAmount(amount);
 }
@@ -36,7 +36,7 @@ void Withdrawal::on_btn20_clicked()
 
 void Withdrawal::on_btn40_clicked()
 {
-    qDebug()<<"40€ withdrawal pressed";
+    qDebug()<<"40€ withdrawal clicked";
     amount = 40;
     handleAmount(amount);
 }
@@ -44,7 +44,7 @@ void Withdrawal::on_btn40_clicked()
 
 void Withdrawal::on_btn50_clicked()
 {
-    qDebug()<<"50€ withdrawal pressed";
+    qDebug()<<"50€ withdrawal clicked";
     amount = 50;
     handleAmount(amount);
 }
@@ -52,7 +52,7 @@ void Withdrawal::on_btn50_clicked()
 
 void Withdrawal::on_btn80_clicked()
 {
-    qDebug()<<"80€ withdrawal pressed";
+    qDebug()<<"80€ withdrawal clicked";
     amount = 80;
     handleAmount(amount);
 }
@@ -60,7 +60,7 @@ void Withdrawal::on_btn80_clicked()
 
 void Withdrawal::on_btn100_clicked()
 {
-    qDebug()<<"100€ withdrawal pressed";
+    qDebug()<<"100€ withdrawal clicked";
     amount = 100;
     handleAmount(amount);
 }
@@ -68,7 +68,7 @@ void Withdrawal::on_btn100_clicked()
 
 void Withdrawal::on_btnOther_clicked()
 {
-    qDebug()<<"Other withdrawal pressed";
+    qDebug()<<"Other withdrawal clicked";
 
     CustomWithdrawal *customWithdrawal = new CustomWithdrawal(this);
     connect(customWithdrawal, SIGNAL(sendEnteredNumber(float)),
@@ -79,7 +79,7 @@ void Withdrawal::on_btnOther_clicked()
 
 void Withdrawal::on_btnReturn_clicked()
 {
-    qDebug()<<"Return button pressed";
+    qDebug()<<"Return button clicked";
     delete this;
 }
 
@@ -94,9 +94,9 @@ void Withdrawal::withdrawalSlot(QNetworkReply *reply)
 
     if (responseDataInteger == 0)
     {
-        ui->responseLabel->setText("Withdrawal failed!");
+        ui->responseLabel->setText("Withdrawal failed");
         QMessageBox msgBox;
-        msgBox.setText("Withdrawal failed, insufficient funds!");
+        msgBox.setText("Withdrawal failed due to insufficient funds");
         msgBox.exec();
         this->close();
     }
@@ -110,7 +110,7 @@ void Withdrawal::withdrawalSlot(QNetworkReply *reply)
     }
     else
     {
-        ui->responseLabel->setText("Unknown response!");
+        ui->responseLabel->setText("Unknown response");
     }
 
     reply->deleteLater();

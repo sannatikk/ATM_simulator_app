@@ -22,7 +22,7 @@ AccountSelect::~AccountSelect()
 void AccountSelect::setWebToken(const QByteArray &newWebToken)
 {
     webToken = newWebToken;
-    qDebug() << "AccountSelect WebToken set: " << webToken;
+    qDebug() << "AccountSelect WebToken set";
 }
 
 void AccountSelect::setAccountIDs(const QJsonArray &newAccountIDs)
@@ -100,7 +100,6 @@ void AccountSelect::setDebitAccount(const QString &newDebitAccount)
 
 void AccountSelect::on_btnDebit_clicked()
 {
-    // usermenu->
     qDebug() << "Account ID: " << debitAccount;
     UserMenu *userMenuPtr = new UserMenu(this);
     userMenuPtr->open();
@@ -111,7 +110,6 @@ void AccountSelect::on_btnDebit_clicked()
 
 void AccountSelect::on_btnCredit_clicked()
 {
-    // usermenu->
     qDebug() << "Account ID: " << creditAccount;
     UserMenu *userMenuPtr = new UserMenu(this);
     userMenuPtr->open();
