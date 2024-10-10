@@ -6,7 +6,7 @@ This project serves as the second-semester software development project in the f
 
 The ATM Simulator App consists of two main components:
 
-1. **Backend:** This is a Node.js application hosted remotely, utilizing the Express framework to provide API endpoints for communication with a remotely hosted MySQL database.
+1. **Backend:** This is a Node.js application hosted remotely, utilizing the Express framework to provide API endpoints for communication with a remotely hosted MySQL database. The database was built from scratch specifically for this project.
 2. **Frontend:** The frontend is developed using Qt Widgets, providing a user-friendly interface for interacting with the ATM functionalities.
 
 ## Requirements
